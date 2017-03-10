@@ -48,7 +48,8 @@ div.container a.navbar-brand > img {
 }
 
 h1.h1 {
-    font-size: 26px !important;
+    font-size: 20px !important;
+    font-weight: bold;
 }
 
 .app-basket {
@@ -103,13 +104,17 @@ h1.h1 {
     border-radius: 3px;
     padding: 16px 20px 16px 10px;
     margin: 0;
-    background: #B81D22;
+    background: #2196F3;
     color: #fff;
 }
 
 .items-panel h5 {
     font-size: 17px;
     margin-bottom: 10px;
+}
+
+.items-panel h5 a {
+    color: #2196F3;
 }
 
 .items-panel .panel-body {
@@ -148,18 +153,34 @@ form ul li {
     margin-bottom: 5px;
 }
 
+.app-top-menu {
+    padding-left: 0px;
+}
+
+.breadcrumb {
+    background-color: #fff;
+    margin-bottom: 0;
+}
+
+.breadcrumbs-block {
+    margin-top: 15px;
+}
+
+.app-menu-title {
+    display: inline-block;
+    margin: 14px 0 0 11px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+/* Media */
+@media (max-width: 767px) {
+    .app-top-menu, .need-help {
+        padding-left: 15px;
+    }
+}

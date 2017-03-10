@@ -39,7 +39,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <span class="need-help">Need help? call us 1-10-23456789</span>
+                    <span class="need-help">
+                        <strong>Need help?</strong> call us <strong class="color-red">1-10-23456789</strong>
+                    </span>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -85,7 +87,7 @@
         </div>
         <div class="container">
             <nav class="navbar navbar-default">
-                <div class="container-fluid">
+                <div class="container-fluid app-top-menu">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
@@ -93,15 +95,10 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Home</a>
+                        <span class="app-menu-title hidden-sm hidden-md hidden-lg">Menu</span>
                     </div>
-
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class=""><a href="<?= $this->url('home') ?>">Contact Us</a></li>
-                            <li class=""><a href="<?= $this->url('home') ?>">Portfolio</a></li>
-                            <li class=""><a href="<?= $this->url('home') ?>">Admin area</a></li>
-                        </ul>
+                        <?= $this->navigation('top_navigation')->menu()->setUlClass("nav navbar-nav")->render() ?>
                         <form class="navbar-form navbar-right" role="search">
                             <div class="form-group">
                                 <input class="form-control" placeholder="Search" type="text">
@@ -112,8 +109,6 @@
                 </div>
             </nav>
         </div>
-
-
         <div class="container">
             <div class="row">
 
@@ -200,7 +195,18 @@
         <br>
         <div class="container">
             <div class="title-render">
-                <h1 class="h1"><?= $this->headTitle()->renderTitle() ?></h1>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h1 class="h1">
+                            <?= ($this->headTitle()->renderTitle() == 'Home') ? 'All products' : $this->headTitle()->renderTitle(); ?>
+                        </h1>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="breadcrumbs-block pull-right">
+                            <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(1)->setPartial('partial/breadcrumb') ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <br>
@@ -215,7 +221,7 @@
                         <div class="share42init soc-icons"></div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-sm-pull-6">
-                        <p>&copy; 111111112005 - <?= date('Y') ?> by PHP-User. All rights reserved.</p>
+                        <p>&copy; <?= $this->getYear() ?> by PHP-User. All rights reserved.</p>
                     </div>
                 </div>
             </div>

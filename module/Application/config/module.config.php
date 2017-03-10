@@ -39,16 +39,6 @@ return [
                     ],
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
         ],
     ],
     'controllers' => [
@@ -70,6 +60,78 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+    ],
+    'navigation' => [
+        'default' => [
+            'home' => [
+                'label' => 'Home',
+                'route' => 'home',
+                'pages' => [
+                    'register' => [
+                        'label' => 'Register',
+                        'route' => 'register',
+                    ],
+                    'login' => [
+                        'label' => 'Login',
+                        'route' => 'login',
+                    ],
+                    'contact' => [
+                        'label' => 'Contact Us',
+                        'route' => 'contact-us',
+                    ],
+                    'portfolio' => [
+                        'label' => 'Portfolio',
+                        'route' => 'portfolio',
+                    ],
+                    'admin' => [
+                        'label' => 'Admin area',
+                        'route' => 'admin',
+                        'pages' => [
+                            'category' => [
+                                'label' => 'Categories',
+                                'route' => 'admin/categories',
+                            ],
+                            'product' => [
+                                'label' => 'Products',
+                                'route' => 'admin/products',
+                            ],
+                            'slider' => [
+                                'label' => 'Slider',
+                                'route' => 'admin/slider',
+                            ],
+                            'user' => [
+                                'label' => 'Users',
+                                'route' => 'admin/users',
+                            ],
+                            'order' => [
+                                'label' => 'Orders',
+                                'route' => 'admin/orders',
+                            ],
+                        ],
+                    ],
+
+                ],
+            ],
+
+        ],
+        'top_navigation' => [
+            'home' => [
+                'label' => 'Home',
+                'route' => 'home',
+            ],
+            'contact' => [
+                'label' => 'Contact Us',
+                'route' => 'contact-us',
+            ],
+            'portfolio' => [
+                'label' => 'Portfolio',
+                'route' => 'portfolio',
+            ],
+            'admin' => [
+                'label' => 'Admin area',
+                'route' => 'admin',
+            ],
         ],
     ],
 ];

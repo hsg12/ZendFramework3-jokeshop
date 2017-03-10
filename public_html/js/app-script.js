@@ -29,9 +29,12 @@ $(function(){
     }
 
     if ($(document).width() < 768) {
-        $('.need-help').css('paddingLeft', '15px');
         $('.carousel-caption').css('padding', 0);
-        $('.carousel-caption h5').css('margin', 0);
+        $('.carousel-caption h5').css({
+            margin: 0,
+            fontSize: '14px'
+        });
+        $('.carousel-caption div').css('fontSize', '12px');
     }
 
     if ($(document).width() < 992) {
@@ -94,6 +97,10 @@ $(function(){
     if ($(document).width() > 767) {
         $('#form-register div.col-sm-3').addClass('text-right');
     }
+
+/////////     ///////////////////////////////////////////////////////////
+
+
 });
 
 

@@ -28,4 +28,7 @@ return [
     'Zend\Validator',
     'Application',
     'Authentication',
+    'ContactUs',
+    'Portfolio',
+    'Admin',
 ];
