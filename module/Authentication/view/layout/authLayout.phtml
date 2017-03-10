@@ -1,0 +1,133 @@
+<?= $this->doctype() ?>
+<?php $user = $this->identity() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle() ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/menu-accordion.css'))
+            ->prependStylesheet($this->basePath('css/liMenuVert.css'))
+            ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/paper-bootstrap.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/app-script.js'))
+            ->prependFile($this->basePath('js/menu-accordion.js'))
+            ->prependFile($this->basePath('js/jquery.liMenuVert.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+        ?>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="need-help">Need help? call us 1-10-23456789</span>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php if ($user) : ?>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span>Hi&nbsp;<strong><?= $this->cutString($user->getName()) ?></strong></span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">My orders</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-shopping-basket app-basket" aria-hidden="true"></i>
+                                    <span class="badge badge-basket">0</span>
+                                </a>
+                            </li>
+                        <?php else : ?>
+                            <li><a href="/register"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+                            <li><a href="/login"><span class="fa fa-sign-in"></span> Login</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="logo-block">
+                    <div class="col-xs-6">
+                        <a href="<?= $this->url('home') ?>">
+                            <img src="<?= $this->basePath() . '/img/logo.png' ?>" alt="Joke Shop" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <strong class="pull-right welcome">Welcome to our Online Store!</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Home</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="<?= $this->url('home') ?>">Contact Us</a></li>
+                            <li class=""><a href="<?= $this->url('home') ?>">Portfolio</a></li>
+                            <li class=""><a href="<?= $this->url('home') ?>">Admin area</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Search" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <?= $this->content ?>
+        </div>
+        <footer class="footer">
+            <hr>
+            <div class="container">
+                <p>&copy; 2005 - <?= date('Y') ?> by PHP-User. All rights reserved.</p>
+            </div>
+        </footer>
+        <?= $this->inlineScript() ?>
+
+        <a id="back-to-top"
+           href="#"
+           class="btn btn-primary btn-md back-to-top"
+           role="button"
+           data-toggle="tooltip"
+           data-placement="left">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+    </body>
+</html>
