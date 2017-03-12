@@ -1,11 +1,11 @@
 <?php
 
-namespace ContactUs\Controller;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class AboutController extends AbstractActionController
 {
     public function indexAction()
     {

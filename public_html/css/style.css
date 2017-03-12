@@ -163,7 +163,7 @@ form ul li {
 }
 
 .breadcrumbs-block {
-    margin-top: 15px;
+    margin-top: 7px;
 }
 
 .app-menu-title {
@@ -171,6 +171,14 @@ form ul li {
     margin: 14px 0 0 11px;
     font-size: 1.3em;
     font-weight: bold;
+}
+
+.title-render {
+    height: 56px;
+}
+
+.title-render h1 {
+    margin-top: 14px;
 }
 
 
@@ -182,5 +190,9 @@ form ul li {
 @media (max-width: 767px) {
     .app-top-menu, .need-help {
         padding-left: 15px;
+    }
+
+    .title-render {
+        height: auto;
     }
 }

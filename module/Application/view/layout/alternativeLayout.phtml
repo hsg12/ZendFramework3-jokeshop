@@ -23,6 +23,7 @@
         <!-- Scripts -->
         <?= $this->headScript()
             ->prependFile($this->basePath('js/app-script.js'))
+            ->prependFile($this->basePath('js/share42/share42.js'))
             ->prependFile($this->basePath('js/menu-accordion.js'))
             ->prependFile($this->basePath('js/jquery.liMenuVert.js'))
             ->prependFile($this->basePath('js/bootstrap.min.js'))
@@ -79,33 +80,73 @@
                         </a>
                     </div>
                     <div class="col-xs-6">
-                        <strong class="pull-right welcome">Welcome to the Admin area!</strong>
+                        <strong class="pull-right welcome">Welcome to our Online Store!</strong>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="title-render">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <h1 class="h1"><?= $this->headTitle()->renderTitle() ?></h1>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid app-top-menu">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="app-menu-title hidden-sm hidden-md hidden-lg">Menu</span>
                     </div>
-                    <div class="col-xs-6">
-                        <div class="breadcrumbs-block pull-right">
-                            <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(1)->setPartial('partial/breadcrumb') ?>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <?= $this->navigation('top_navigation')->menu()->setUlClass("nav navbar-nav")->render() ?>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Search" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5 class="title-categories">Categories</h5>
+                    <?= $this->getCategories() ?>
+                </div>
+                <div class="col-sm-9">
+                    <div class="title-render">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h1 class="h1">
+                                    <?= ($this->headTitle()->renderTitle() == 'Home') ? 'All products' : $this->headTitle()->renderTitle(); ?>
+                                </h1>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="breadcrumbs-block pull-right">
+                                    <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(1)->setPartial('partial/breadcrumb') ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div>
+                        <?= $this->content ?>
+                    </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="container">
-            <?= $this->content ?>
         </div>
         <footer class="footer">
             <hr>
             <div class="container">
-                <p>&copy; 2005 - <?= date('Y') ?> by PHP-User. All rights reserved.</p>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-push-6">
+                        <div class="share42init soc-icons"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-pull-6">
+                        <p>&copy; <?= $this->getYear() ?> by PHP-User. All rights reserved.</p>
+                    </div>
+                </div>
             </div>
         </footer>
         <?= $this->inlineScript() ?>

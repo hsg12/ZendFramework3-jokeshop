@@ -8,6 +8,7 @@
 namespace Application;
 
 use Zend\Navigation\Service\DefaultNavigationFactory;
+use Doctrine\ORM\EntityManager;
 
 class Module
 {
@@ -24,6 +25,13 @@ class Module
             'invokables' => [
                 'getYear' => View\Helper\GetYear::class,
             ],
+            'factories' => [
+                'getCategories' => function ($container) {
+                    return new View\Helper\GetCategories(
+                        $container->get(EntityManager::class)
+                    );
+                },
+            ],
         ];
     }
 
@@ -32,6 +40,19 @@ class Module
         return [
             'factories' => [
                 'top_navigation' => Service\TopNavigationFactory::class,
+            ],
+        ];
+    }
+
+    public function getControllerConfig()
+    {
+        return [
+            'factories' => [
+                Controller\CategoryController::class => function ($container) {
+                    return new Controller\CategoryController(
+                        $container->get(EntityManager::class)
+                    );
+                },
             ],
         ];
     }

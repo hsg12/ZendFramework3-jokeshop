@@ -38,12 +38,65 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'about-us' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => 'about-us',
+                            'defaults' => [
+                                'controller' => Controller\AboutController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    'basket' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => 'basket',
+                            'defaults' => [
+                                'controller' => Controller\BasketController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    'order' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => 'order',
+                            'defaults' => [
+                                'controller' => Controller\OrderController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    'category' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'       => 'category[/:id]',
+                            'constraints' => [
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CategoryController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                ],
             ],
+
+
+
+
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\AboutController::class => InvokableFactory::class,
+            Controller\BasketController::class => InvokableFactory::class,
+            Controller\OrderController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -75,6 +128,22 @@ return [
                     'login' => [
                         'label' => 'Login',
                         'route' => 'login',
+                    ],
+                    'about' => [
+                        'label' => 'About us',
+                        'route' => 'home/about-us',
+                    ],
+                    'basket' => [
+                        'label' => 'Basket',
+                        'route' => 'home/basket',
+                    ],
+                    'order' => [
+                        'label' => 'Orders',
+                        'route' => 'home/order',
+                    ],
+                    'category' => [
+                        'label' => 'Categories',
+                        'route' => 'home/category',
                     ],
                     'contact' => [
                         'label' => 'Contact Us',
@@ -119,6 +188,10 @@ return [
             'home' => [
                 'label' => 'Home',
                 'route' => 'home',
+            ],
+            'about' => [
+                'label' => 'About',
+                'route' => 'home/about-us',
             ],
             'contact' => [
                 'label' => 'Contact Us',

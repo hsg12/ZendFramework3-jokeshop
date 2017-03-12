@@ -52,13 +52,13 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">My orders</a></li>
+                                    <li><a href="/order">My orders</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="/basket">
                                     <i class="fa fa-shopping-basket app-basket" aria-hidden="true"></i>
                                     <span class="badge badge-basket">0</span>
                                 </a>
@@ -111,28 +111,9 @@
         </div>
         <div class="container">
             <div class="row">
-
                 <div class="col-sm-3">
                     <h5 class="title-categories">Categories</h5>
-                    <ul class="list-group table-of-contents list-unstyled menu_vert">
-                        <li><a href="#navbar">Navbar</a></li>
-                        <li><a href="#buttons">Buttons</a>
-                            <ul>
-                                <li><a href="#forms">Forms</a></li>
-                                <li><a href="#navs">Navs</a></li>
-                                <li><a href="#navs">Spans</a>
-                                    <ul>
-                                        <li><a href="#forms">Forms</a></li>
-                                        <li><a href="#navs">Navs</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a  href="#typography">Typography</a></li>
-                        <li><a  href="#tables">Tables</a></li>
-                        <li><a  href="#forms">Forms</a></li>
-                        <li><a href="#navs">Navs</a></li>
-                    </ul>
+                    <?= $this->getCategories() ?>
                 </div>
                 <div class="col-sm-9">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -153,38 +134,17 @@
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="<?= $this->basePath('img/slider/slider1.png') ?>" alt="...">
+                                <img src="<?= $this->basePath('img/slider/slider3.png') ?>" alt="...">
                                 <div class="carousel-caption">
                                     <h5>Title 3</h5>
                                     <div>Some text 3</div>
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="<?= $this->basePath('img/slider/slider2.png') ?>" alt="...">
+                                <img src="<?= $this->basePath('img/slider/slider4.png') ?>" alt="...">
                                 <div class="carousel-caption">
-                                    <h5>Title 4</h5>
-                                    <div>Some text 4</div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="<?= $this->basePath('img/slider/slider1.png') ?>" alt="...">
-                                <div class="carousel-caption">
-                                    <h5>Title 4</h5>
-                                    <div>Some text 4</div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="<?= $this->basePath('img/slider/slider2.png') ?>" alt="...">
-                                <div class="carousel-caption">
-                                    <h5>Title 7</h5>
-                                    <div>Some text 7</div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="<?= $this->basePath('img/slider/slider1.png') ?>" alt="...">
-                                <div class="carousel-caption">
-                                    <h5>Title 8</h5>
-                                    <div>Some text 8</div>
+                                    <h5>Title 3</h5>
+                                    <div>Some text 3</div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +169,6 @@
                 </div>
             </div>
         </div>
-        <br>
         <div class="container">
             <?= $this->content ?>
         </div>

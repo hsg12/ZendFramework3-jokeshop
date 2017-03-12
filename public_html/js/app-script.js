@@ -50,6 +50,8 @@ $(function(){
         $('.footer .soc-icons').addClass('pull-right');
     } else {
         $('.footer .soc-icons').addClass('copyright');
+        $('<br>').insertBefore($('.title-render'));
+
     }
 
 /////////   menu vert   ///////////////////////////////////////////////////////
