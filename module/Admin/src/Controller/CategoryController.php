@@ -9,7 +9,7 @@ class CategoryController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->layout('layout/adminLayout');
+
         return new ViewModel();
     }
 }

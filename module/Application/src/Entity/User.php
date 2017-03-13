@@ -54,7 +54,7 @@ class User
      *
      * @ORM\Column(name="role", type="string", length=100, precision=0, scale=0, nullable=false, unique=false)
      */
-    private $role = "admin";
+    private $role = "user";
 
     /**
      * @var \DateTime

@@ -99,6 +99,11 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <?= $this->navigation('top_navigation')->menu()->setUlClass("nav navbar-nav")->render() ?>
+                        <?php if ($user && ($user->getRole() === 'admin' || $user->getRole() === 'superadmin')) : ?>
+                            <ul class="nav navbar-nav navbar-admin">
+                                <li class="admin-area"><a href="/admin">Admin</a></li>
+                            </ul>
+                        <?php endif; ?>
                         <form class="navbar-form navbar-right" role="search">
                             <div class="form-group">
                                 <input class="form-control" placeholder="Search" type="text">

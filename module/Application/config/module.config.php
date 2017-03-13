@@ -164,6 +164,13 @@ return [
                             'product' => [
                                 'label' => 'Products',
                                 'route' => 'admin/products',
+                                'pages' => [
+                                    'add' => [
+                                        'label'  => 'Add',
+                                        'route'  => 'admin/products',
+                                        'action' => 'add',
+                                    ],
+                                ],
                             ],
                             'slider' => [
                                 'label' => 'Slider',
@@ -200,10 +207,6 @@ return [
             'portfolio' => [
                 'label' => 'Portfolio',
                 'route' => 'portfolio',
-            ],
-            'admin' => [
-                'label' => 'Admin area',
-                'route' => 'admin',
             ],
         ],
     ],

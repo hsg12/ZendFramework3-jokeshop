@@ -103,7 +103,6 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\CategoryController::class => InvokableFactory::class,
-            Controller\ProductController::class => InvokableFactory::class,
             Controller\SliderController::class => InvokableFactory::class,
             Controller\UserController::class => InvokableFactory::class,
             Controller\OrderController::class => InvokableFactory::class,

@@ -3,12 +3,16 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Form\Annotation;
 
 /**
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="category_id_key", columns={"category_id"})})
  * @ORM\Entity
+ *
+ * @Annotation\Name("product")
+ * @Annotation\Attributes({"class":"form-horizontal"})
  */
 class Product
 {
@@ -18,6 +22,8 @@ class Product
      * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Annotation\Exclude()
      */
     private $id;
 
@@ -25,6 +31,17 @@ class Product
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100, precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Attributes({"class":"form-control", "id":"name", "required":"required"})
+     * @Annotation\Options({
+     *     "label":"Product name",
+     *     "min":"2", "max":"100",
+     *     "label_attributes":{"class":"control-label col-sm-2"},
+     * })
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"stripTags", "name":"stringTrim"})
+     * @Annotation\Validator({"name":"stringLength", "options":{"encoding":"utf-8", "min":"2", "max":"100"}})
      */
     private $name;
 
@@ -32,6 +49,13 @@ class Product
      * @var float
      *
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Attributes({"class":"form-control", "id":"price", "required":"required"})
+     * @Annotation\Options({"label":"Price", "label_attributes":{"class":"control-label col-sm-2"}})
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"boolean"})
+     * @Annotation\Validator({"name":"isFloat"})
      */
     private $price;
 
@@ -39,8 +63,14 @@ class Product
      * @var boolean
      *
      * @ORM\Column(name="availability", type="boolean", precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Attributes({"id":"availability"})
+     * @Annotation\Options({"label":"Availability", "label_attributes":{"class":"text-right col-sm-2"}})
+     * @Annotation\Filter({"name":"boolean"})
+     * @Annotation\Validator({"name":"isFloat"})
      */
-    private $availability;
+    private $availability = "1";
 
     /**
      * @var string

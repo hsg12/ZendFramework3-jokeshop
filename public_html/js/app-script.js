@@ -51,7 +51,7 @@ $(function(){
     } else {
         $('.footer .soc-icons').addClass('copyright');
         $('<br>').insertBefore($('.title-render'));
-
+        $('.nav.navbar-nav').css('marginBottom', 0);
     }
 
 /////////   menu vert   ///////////////////////////////////////////////////////
@@ -100,9 +100,21 @@ $(function(){
         $('#form-register div.col-sm-3').addClass('text-right');
     }
 
-/////////     ///////////////////////////////////////////////////////////
+/////////   For form asterisk   /////////////////////////////////////////////////////////
 
+    var asterisk = function () {
+        var obj = $("form label:contains('*')");
 
+        if (obj) {
+            var objLength = obj.length - 1;
+            for (var i = objLength; i >= 0; i--) {
+                var newString = obj.eq(i).html().replace("*", "<strong class='color-red'>*</strong>");
+                obj.eq(i).html(newString);
+            }
+        }
+    }();
+
+/////////   /////
 });
 
 

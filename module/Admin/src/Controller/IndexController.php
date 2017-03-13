@@ -9,7 +9,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->layout('layout/adminLayout');
+
         return new ViewModel();
     }
 }
