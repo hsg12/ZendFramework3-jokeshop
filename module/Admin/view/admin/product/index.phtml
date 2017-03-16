@@ -2,6 +2,52 @@
 $headTitle = 'Manage products';
 $this->headTitle($headTitle);
 ?>
-<div><a href="<?= $this->url('admin/products', ['action' => 'add']) ?>" class="btn btn-default">Add product</a></div>
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<div class="row">
+    <div class="col-sm-6">
+        <form class="navbar-form navbar-left admin-product-form" role="search">
+            <div class="form-group">
+                <input class="form-control" placeholder="Products count per home page" type="text">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <input class="form-control" placeholder="Products count per category page" type="text">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-6 col-sm-push-6">
+        <div class="pull-right admin-add-product-block">
+            <a href="<?= $this->url('admin/products', ['action' => 'add']) ?>" class="btn btn-default">Add product</a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-sm-pull-6">
+        <form action="#"
+              method="post"
+              class="navbar-form admin-product-form"
+              role="search"
+              id="adminProductSearch"
+        >
+            <div class="form-group">
+                <input class="form-control" placeholder="Find product" name="findProduct" type="text">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul id="adminProductSearchResult" class="list-unstyled"></ul>
+    </div>
+</div>
+
+
+
+
+
+
 
 

@@ -40,7 +40,6 @@ class RegisterController extends AbstractActionController
     {
         $this->layout('layout/authLayout');
 
-        $nameExists = false;
         $user = new User();
         $form = $this->registerForm;
 
@@ -53,12 +52,12 @@ class RegisterController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                if ($this->validationService->isObjectExists($user->getName(), ['name'])) {
-                    $nameExists = 'User with name ' . $user->getName() . ' exists already';
-                    return new ViewModel([
-                        'form'  => $form,
-                        'nameExists' => $nameExists,
-                    ]);
+                $repository = $this->entityManager->getRepository(User::class);
+
+                if ($this->validationService->isObjectExists($repository, $user->getName(), ['name'])) {
+                    $nameExists = 'User with name "' . $user->getName() . '" exists already';
+                    $form->get('name')->setMessages(['nameExists' => $nameExists]);
+                    return ['form'  => $form]; die;
                 }
 
                 $cloneUser = clone $user; // to have not hashed password

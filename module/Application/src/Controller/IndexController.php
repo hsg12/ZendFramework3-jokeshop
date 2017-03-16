@@ -9,11 +9,40 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Doctrine\ORM\EntityManagerInterface;
+use Application\Entity\Product;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 
 class IndexController extends AbstractActionController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function indexAction()
     {
-        return new ViewModel();
+        //$products = $this->entityManager->getRepository(Product::class)->findAll();
+
+        $productsQueryBuilder = $this->entityManager
+                                     ->getRepository(Product::class)
+                                     ->getProductsQueryBuilder($this->entityManager);
+
+        $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
+        $paginator = new Paginator($adapter);
+
+        $currentPageNumber = (int)$this->params()->fromRoute('page', 1);
+        $paginator->setCurrentPageNumber($currentPageNumber);
+
+        $itemCountPerPage = 1;
+        $paginator->setItemCountPerPage($itemCountPerPage);
+
+        return new ViewModel([
+            'products' => $paginator,
+        ]);
     }
 }

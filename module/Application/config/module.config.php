@@ -30,9 +30,12 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/[page/:page]',
+                    'constraints' => [
+                        'page' => '[0-9]+',
+                    ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -40,16 +43,6 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'about-us' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route'    => 'about-us',
-                            'defaults' => [
-                                'controller' => Controller\AboutController::class,
-                                'action'     => 'index',
-                            ],
-                        ],
-                    ],
                     'basket' => [
                         'type' => Literal::class,
                         'options' => [
@@ -83,17 +76,35 @@ return [
                             ],
                         ],
                     ],
+                    'product' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'       => 'product[/:id]',
+                            'constraints' => [
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ProductController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
                 ],
             ],
-
-
-
-
+            'about-us' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/about-us',
+                    'defaults' => [
+                        'controller' => Controller\AboutController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
             Controller\AboutController::class => InvokableFactory::class,
             Controller\BasketController::class => InvokableFactory::class,
             Controller\OrderController::class => InvokableFactory::class,
@@ -170,6 +181,11 @@ return [
                                         'route'  => 'admin/products',
                                         'action' => 'add',
                                     ],
+                                    'edit' => [
+                                        'label'  => 'Edit',
+                                        'route'  => 'admin/products',
+                                        'action' => 'edit',
+                                    ],
                                 ],
                             ],
                             'slider' => [
@@ -198,7 +214,7 @@ return [
             ],
             'about' => [
                 'label' => 'About',
-                'route' => 'home/about-us',
+                'route' => 'about-us',
             ],
             'contact' => [
                 'label' => 'Contact Us',

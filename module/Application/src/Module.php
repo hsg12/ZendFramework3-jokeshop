@@ -24,6 +24,7 @@ class Module
         return [
             'invokables' => [
                 'getYear' => View\Helper\GetYear::class,
+                'getFlashMessenger' => View\Helper\GetFlashMessenger::class,
             ],
             'factories' => [
                 'getCategories' => function ($container) {
@@ -48,8 +49,18 @@ class Module
     {
         return [
             'factories' => [
+                Controller\IndexController::class => function ($container) {
+                    return new Controller\IndexController(
+                        $container->get(EntityManager::class)
+                    );
+                },
                 Controller\CategoryController::class => function ($container) {
                     return new Controller\CategoryController(
+                        $container->get(EntityManager::class)
+                    );
+                },
+                Controller\ProductController::class => function ($container) {
+                    return new Controller\ProductController(
                         $container->get(EntityManager::class)
                     );
                 },

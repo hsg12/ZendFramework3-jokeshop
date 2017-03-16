@@ -9,7 +9,7 @@ use Zend\Form\Annotation;
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="category_id_key", columns={"category_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\ProductRepository")
  *
  * @Annotation\Name("product")
  * @Annotation\Attributes({"class":"form-horizontal"})
@@ -35,7 +35,7 @@ class Product
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"class":"form-control", "id":"name", "required":"required"})
      * @Annotation\Options({
-     *     "label":"Product name",
+     *     "label":"Designation",
      *     "min":"2", "max":"100",
      *     "label_attributes":{"class":"control-label col-sm-2"},
      * })
@@ -54,8 +54,16 @@ class Product
      * @Annotation\Attributes({"class":"form-control", "id":"price", "required":"required"})
      * @Annotation\Options({"label":"Price", "label_attributes":{"class":"control-label col-sm-2"}})
      * @Annotation\Required({"required":"true"})
-     * @Annotation\Filter({"name":"boolean"})
-     * @Annotation\Validator({"name":"isFloat"})
+     * @Annotation\Filter({"name":"stringTrim"})
+     * @Annotation\Validator({
+     *     "name":"regex",
+     *     "options":{
+     *         "pattern":"/^\d+[.]?\d+$/",
+     *         "messages":{
+     *             "regexNotMatch":"Please input a valid price"
+     *         },
+     *     }
+     * })
      */
     private $price;
 
@@ -66,9 +74,15 @@ class Product
      *
      * @Annotation\Type("Zend\Form\Element\Checkbox")
      * @Annotation\Attributes({"id":"availability"})
-     * @Annotation\Options({"label":"Availability", "label_attributes":{"class":"text-right col-sm-2"}})
+     * @Annotation\Options({
+     *     "label":"Availability",
+     *     "label_attributes":{"class":"text-right col-sm-2"},
+     *     "set_hidden_element":"true",
+     *     "checked_value":"1",
+     *     "unchecked_value":"0"
+     * })
      * @Annotation\Filter({"name":"boolean"})
-     * @Annotation\Validator({"name":"isFloat"})
+     * @Annotation\AllowEmpty({"allowempty":"false"})
      */
     private $availability = "1";
 
@@ -76,6 +90,17 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Textarea")
+     * @Annotation\Attributes({"class":"form-control", "id":"description", "required":"required"})
+     * @Annotation\Options({
+     *     "label":"Description",
+     *     "min":"2",
+     *     "label_attributes":{"class":"control-label col-sm-2"},
+     * })
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Filter({"name":"stripTags", "name":"stringTrim"})
+     * @Annotation\Validator({"name":"stringLength", "options":{"encoding":"utf-8", "min":"2"}})
      */
     private $description;
 
@@ -83,22 +108,62 @@ class Product
      * @var boolean
      *
      * @ORM\Column(name="is_new", type="boolean", precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Attributes({"id":"isNew"})
+     * @Annotation\Options({
+     *     "label":"Is new",
+     *     "label_attributes":{"class":"text-right col-sm-2"},
+     *     "set_hidden_element":"true",
+     *     "checked_value":"1",
+     *     "unchecked_value":"0",
+     * })
+     * @Annotation\Filter({"name":"boolean"})
+     * @Annotation\AllowEmpty({"allowempty":"false"})
      */
-    private $isNew;
+    private $isNew = "0";
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean", precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Attributes({"id":"status"})
+     * @Annotation\Options({
+     *     "label":"Visible",
+     *     "label_attributes":{"class":"text-right col-sm-2"},
+     *     "set_hidden_element":"true",
+     *     "checked_value":"1",
+     *     "unchecked_value":"0",
+     * })
+     * @Annotation\Filter({"name":"boolean"})
+     * @Annotation\AllowEmpty({"allowempty":"false"})
      */
-    private $status;
+    private $status = "1";
 
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255, precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="image", type="string", length=100, precision=0, scale=0, nullable=true, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\File")
+     * @Annotation\Name("file")
+     * @Annotation\Attributes({"id":"file"})
+     * @Annotation\Options({"label":"Upload image", "label_attributes":{"class":"control-label text-right col-sm-2"}})
+     * @Annotation\Filter({
+     *     "type":"Zend\InputFilter\FileInput",
+     *     "name":"FileRenameUpload",
+     *     "options":{
+     *         "target":"./public_html/img/products/",
+     *         "useUploadName":true,
+     *         "useUploadExtension":true,
+     *         "overwrite":true,
+     *         "randomize":false
+     *     }
+     * })
      */
-    private $image;
+    private $image = "/img/products/no-image.jpg";
 
     /**
      * @var \Application\Entity\Category
@@ -107,8 +172,26 @@ class Product
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true)
      * })
+     *
+     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
+     * @Annotation\Attributes({"class":"form-control", "id":"category", "required":"required"})
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Options({
+     *   "label":"Categories",
+     *   "label_attributes":{"class":"control-label text-right col-sm-2"},
+     *   "empty_option": "Select category",
+     *   "target_class":"Application\Entity\Category",
+     *   "property": "name"
+     * })
      */
     private $category;
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Submit")
+     * @Annotation\Attributes({"class":"btn btn-default", "value":"Submit"})
+     * @Annotation\AllowEmpty({"allowempty":"true"})
+     */
+    private $submit;
 
 
     /**

@@ -31,7 +31,8 @@ class Module
                 Controller\ProductController::class => function ($container) {
                     return new Controller\ProductController(
                         $container->get(EntityManager::class),
-                        $container->get('formService')
+                        $container->get('formService'),
+                        $container->get('validationService')
                     );
                 },
             ],

@@ -3,201 +3,35 @@ $headTitle = 'Home';
 $this->headTitle($headTitle);
 ?>
 <br>
+<?php if (count($this->products) == 0) : ?>
+<h5>List is empty</h5>
+<?php else : ?>
 <div class="row">
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/1.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center"><a href="#">Item name sdas</a></h5>
-            <div class="panel-footer">
-                <span>Price $1000.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/2.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
+    <?php foreach ($this->products as $product) : ?>
+        <div class="col-xs-6 col-sm-3 items-panel">
+            <div class="panel">
+                <div class="panel-body text-center">
+                    <img src="<?= $this->escapeHtml($product->getImage()) ?>" class="img-responsive" alt="product-image">
+                </div>
+                <h5 class="panel-title text-center">
+                    <a href="/product/<?= $this->escapeHtml($product->getId()) ?>"><?= $this->escapeHtml($product->getName()) ?></a>
+                </h5>
+                <div class="panel-footer">
+                    <span>Price $<?= $this->escapeHtml($product->getPrice()) ?></span>
+                    <span class="pull-right"><a href="#">Add to cart</a></span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/3.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/4.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/5.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/6.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/7.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/8.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/9.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/10.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/11.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/12.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/no-image.jpg" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/12.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/no-image.jpg" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3 items-panel">
-        <div class="panel">
-            <div class="panel-body text-center">
-                <img src="/img/products/12.png" class="img-responsive" alt="">
-            </div>
-            <h5 class="panel-title text-center">Item name</h5>
-            <div class="panel-footer">
-                <span>Price $10.50</span>
-                <span class="pull-right"><a href="#">Add to cart</a></span>
-            </div>
-        </div>
-    </div>
+    <?php endforeach; ?>
 </div>
 <br>
 <br>
-<h4 class="text-center">Pagination</h4>
-<br>
+<?php
+    echo $this->paginationControl(
+        $this->products,
+        'sliding',
+        'partial/paginator',
+        ['route' => 'home']
+    );
+?>
+<?php endif; ?>

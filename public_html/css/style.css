@@ -186,7 +186,41 @@ form ul li {
     margin-bottom: 0;
 }
 
+form textarea {
+    resize: vertical;
+    min-height: 200px;
+}
 
+input[placeholder]          {font-size: 12px;}
+input::-moz-placeholder     {font-size: 12px;}
+input:-moz-placeholder      {font-size: 12px;}
+input:-ms-input-placeholder {font-size: 12px;}
+
+.admin-product-form {
+    padding-left: 0;
+}
+
+.admin-add-product-block {
+    margin-top: 14px;
+}
+
+#adminProductSearchResult {
+    max-height: 200px;
+    overflow: auto;
+}
+
+.admin-product-edit-img {
+    width: 30%;
+}
+
+.delete-product-form {
+    display: none;
+}
+
+.add-to-cart-button {
+    padding-left: 17px;
+    padding-right: 17px;
+}
 
 
 

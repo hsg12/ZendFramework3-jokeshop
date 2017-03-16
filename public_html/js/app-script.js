@@ -35,6 +35,9 @@ $(function(){
             fontSize: '14px'
         });
         $('.carousel-caption div').css('fontSize', '12px');
+        $('.admin-product-form').css('paddingLeft', '15px');
+        $('.admin-add-product-block').removeClass('pull-right');
+        $('.admin-product-edit-img').css('width', '50%');
     }
 
     if ($(document).width() < 992) {
@@ -114,7 +117,55 @@ $(function(){
         }
     }();
 
-/////////   /////
+/////////   For button input file   /////////////////////////////////////////////////////
+
+    $(":file").jfilestyle({inputSize: "50%"});
+
+/////////   Product search for admin panel   ////////////////////////////////////////////
+
+    var adminProductSearch = function () {
+        var formData = $('#adminProductSearch').serialize();
+
+        $.ajax({
+            url: '/admin/products/search',
+            type: 'post',
+            dataType: 'json',
+            data: formData,
+            success: function(data){
+                if (data) {
+                    $('#adminProductSearchResult li').remove();
+                    for (key in data) {
+                        var dataAppend = '<li><a href="/admin/products/edit/' + data[key].id + '">' + data[key].name + '</a></li>';
+                        $('#adminProductSearchResult').append(dataAppend);
+                    }
+                } else {
+                    $('#adminProductSearchResult li').remove();
+                    $('#adminProductSearchResult').append('<li>Nothing found</li>');
+                }
+            },
+        });
+
+        return false;
+    }
+
+    $('#adminProductSearch').on('submit', adminProductSearch);
+    $(document).click(function(){
+        $('#adminProductSearchResult li').remove();
+    });
+
+/////////   For user delete modal   /////////////////////////////////////////////////////
+
+    $('#delete-product').click('on', function(){
+        $('.delete-product-form').submit();
+    });
+
+/////////
+
+
+
+
+
+
 });
 
 

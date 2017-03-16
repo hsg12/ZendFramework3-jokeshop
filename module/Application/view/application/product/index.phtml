@@ -1,0 +1,44 @@
+<?php
+$headTitle = $this->escapeHtml($this->product->getName());
+$this->headTitle($headTitle);
+?>
+<br>
+<div class="row">
+    <div class="col-lg-10 col-md-9">
+        <div>
+            <img src="<?= $this->escapeHtml($this->product->getImage()) ?>"
+                 alt="product-image"
+                 class="img-responsive"
+                 width="50%"
+                 height="50%"
+            >
+        </div>
+        <div><strong>Category:</strong> <em><?= $this->escapeHtml($this->product->getCategory()->getName()) ?></em></div>
+        <hr>
+        <div>
+            <h5>Description:</h5>
+            <?= $this->escapeHtml($this->product->getDescription()) ?>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-2 col-md-3 col-xs-6 text-center">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Price</h3>
+            </div>
+            <div class="panel-body active">
+                $ <span class="badge"><?= $this->escapeHtml($this->product->getPrice()) ?></span>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Count</h3>
+            </div>
+            <div class="panel-body active">
+                <span class="badge">0</span>
+            </div>
+        </div>
+        <hr>
+        <a href="#" class="btn btn-default add-to-cart-button">Add to cart</a>
+    </div>
+</div>
