@@ -17,6 +17,8 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 
 class IndexController extends AbstractActionController
 {
+    const URL_FOR_HOME_PAGE     = './data/items-count-per-page/products-count-per-home-page.txt';
+
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -26,11 +28,9 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        //$products = $this->entityManager->getRepository(Product::class)->findAll();
-
         $productsQueryBuilder = $this->entityManager
                                      ->getRepository(Product::class)
-                                     ->getProductsQueryBuilder($this->entityManager);
+                                     ->getProductsQueryBuilderForHomePage($this->entityManager);
 
         $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
         $paginator = new Paginator($adapter);
@@ -38,7 +38,11 @@ class IndexController extends AbstractActionController
         $currentPageNumber = (int)$this->params()->fromRoute('page', 1);
         $paginator->setCurrentPageNumber($currentPageNumber);
 
-        $itemCountPerPage = 1;
+        if (is_file(self::URL_FOR_HOME_PAGE)) {
+            $itemCountPerHomePage = file_get_contents(self::URL_FOR_HOME_PAGE);
+        }
+
+        $itemCountPerPage = $itemCountPerHomePage ? $itemCountPerHomePage : 8;
         $paginator->setItemCountPerPage($itemCountPerPage);
 
         return new ViewModel([

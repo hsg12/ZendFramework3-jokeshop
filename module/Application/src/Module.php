@@ -32,6 +32,11 @@ class Module
                         $container->get(EntityManager::class)
                     );
                 },
+                'GetRouteParams' => function ($container) {
+                    return new View\Helper\GetRouteParams(
+                        $container->get('Application')
+                    );
+                },
             ],
         ];
     }
@@ -61,6 +66,11 @@ class Module
                 },
                 Controller\ProductController::class => function ($container) {
                     return new Controller\ProductController(
+                        $container->get(EntityManager::class)
+                    );
+                },
+                Controller\BasketController::class => function ($container) {
+                    return new Controller\BasketController(
                         $container->get(EntityManager::class)
                     );
                 },

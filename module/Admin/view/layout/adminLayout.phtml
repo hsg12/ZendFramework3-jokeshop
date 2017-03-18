@@ -13,6 +13,7 @@
 
         <!-- Le styles -->
         <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/j-confirm-action.css'))
             ->prependStylesheet($this->basePath('css/menu-accordion.css'))
             ->prependStylesheet($this->basePath('css/jquery-filestyle.min.css'))
             ->prependStylesheet($this->basePath('css/liMenuVert.css'))
@@ -24,6 +25,7 @@
         <!-- Scripts -->
         <?= $this->headScript()
             ->prependFile($this->basePath('js/app-script.js'))
+            ->prependFile($this->basePath('js/j-confirm-action.js'))
             ->prependFile($this->basePath('js/jquery-filestyle.min.js'))
             ->prependFile($this->basePath('js/menu-accordion.js'))
             ->prependFile($this->basePath('js/jquery.liMenuVert.js'))
@@ -61,7 +63,7 @@
                             <li>
                                 <a href="/basket">
                                     <i class="fa fa-shopping-basket app-basket" aria-hidden="true"></i>
-                                    <span class="badge badge-basket">0</span>
+                                    <span class="badge badge-basket"><?= \Application\Model\Cart::countProducts() ?></span>
                                 </a>
                             </li>
                         <?php else : ?>

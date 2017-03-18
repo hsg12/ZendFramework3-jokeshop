@@ -2,4 +2,74 @@
 $headTitle = 'Basket';
 $this->headTitle($headTitle);
 ?>
+<?php if (! $this->products) : ?>
+<h6><em>You didn't select any product. Basket is empty.</em></h6>
+<?php else : ?>
+<h6 class="h6-basket-selected-products"><em>Selected product(s)</em></h6>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>Product name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        <?php foreach ($this->products as $product) : ?>
+        <tr>
+            <td>
+                <a href="/product/<?= (int)$product->getId() ?>"><?= $this->escapeHtml($product->getName()) ?></a>
+            </td>
+            <td>
+                <img src="<?= $this->escapeHtml($product->getImage()) ?>" width="30px" height="30px">
+            </td>
+            <td>US $<?= $this->escapeHtml($product->getPrice()) ?></td>
+            <td class="basket-price">US $
+                <span>
+                    <?= number_format($this->escapeHtml($product->getPrice()) * $this->productsSession[(int)$product->getId()], 2) ?>
+                </span>
+            </td>
+            <td>
+                <ul class="plus-minus-product list-unstyled list-inline">
+                    <li>
+                        <a href="#" class="add-to-cart" data-id="<?= (int)$product->getId() ?>">
+                            <span class="badge"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="basket-concrete-product-count">
+                            <?= $this->productsSession[(int)$product->getId()] ?>
+                        </span>
+                    </li>
+                    <li>
+                        <a href="#" class="subtract-from-cart" data-id="<?= (int)$product->getId() ?>">
+                            <span class="badge"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </td>
+            </td>
+            <td>
+                <i class="glyphicon glyphicon-trash"></i><a href="#" class="delete-concrete-product"> Delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 <br>
+<br>
+<div>
+    <strong>Total price</strong> US $
+    <strong  class="total-price color-red"><?= number_format($this->totalPrice, 2) ?></strong>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-6">
+        <a href=#" class="btn btn-primary">Continue</a>
+    </div>
+    <div class="col-sm-6">
+        <a href="<?= $this->url('basket', ['action' => 'clear']) ?>" class="btn btn-danger pull-right">Cancel</a>
+    </div>
+</div>
+<?php endif; ?>

@@ -159,11 +159,65 @@ $(function(){
         $('.delete-product-form').submit();
     });
 
+/////////   Add to cart   ///////////////////////////////////////////////////////////////
+
+    var addToCart = function(){
+        var id = $(this).attr('data-id');
+        var obj = $(this);
+
+        $.ajax({
+            url: '/basket/add/' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function(data){
+                if (data) {
+                    $('.badge-basket').text(data.countProducts);
+                    $('.count-concrete-product').text(data.countConcreteProduct);
+                    obj.parent().siblings('li').eq(0).children('span').text(data.countConcreteProduct);
+                    $('.product-price').text((data.price * data.countConcreteProduct).toFixed(2));
+                    obj.parent().parent().parent().siblings('.basket-price').children('span').text((data.price * data.countConcreteProduct).toFixed(2));
+                    $('.total-price').text(data.totalPrice.toFixed(2));
+                }
+            }
+        });
+
+        return false;
+    };
+
+    $('.add-to-cart').on('click', addToCart);
+
+/////////   Subtract from cart   ////////////////////////////////////////////////////////
+
+    var subtractFromCart = function(){
+        var id = $(this).attr('data-id');
+        var obj = $(this);
+
+        $.ajax({
+            url: '/basket/subtract/' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function(data){
+                if (data) {
+                    obj.parent().prev().children('span.basket-concrete-product-count').text(data.countConcreteProduct);
+                    obj.parent().parent().parent().siblings('.basket-price').children('span').text((data.price * data.countConcreteProduct).toFixed(2));
+                    $('.total-price').text(data.totalPrice.toFixed(2));
+                }
+            }
+        });
+
+        return false;
+    };
+
+    $('.subtract-from-cart').on('click', subtractFromCart);
+
+/////////   For confirm plugin   ////////////////////////////////////////////////////////
+
+    $('.delete-concrete-product').jConfirmAction({
+        question: 'Are you sure?',
+        noText: 'Cancel'
+    });
+
 /////////
-
-
-
-
 
 
 });

@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Product;
+use Application\Model\Cart;
 
 class ProductController extends AbstractActionController
 {
@@ -24,6 +25,7 @@ class ProductController extends AbstractActionController
 
         return new ViewModel([
             'product' => $product,
+            'productCount' => Cart::countConcreteProduct((int)$product->getId()),
         ]);
     }
 }

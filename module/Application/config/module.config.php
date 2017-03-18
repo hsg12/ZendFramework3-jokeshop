@@ -43,35 +43,12 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'basket' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route'    => 'basket',
-                            'defaults' => [
-                                'controller' => Controller\BasketController::class,
-                                'action'     => 'index',
-                            ],
-                        ],
-                    ],
                     'order' => [
                         'type' => Literal::class,
                         'options' => [
                             'route'    => 'order',
                             'defaults' => [
                                 'controller' => Controller\OrderController::class,
-                                'action'     => 'index',
-                            ],
-                        ],
-                    ],
-                    'category' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route'       => 'category[/:id]',
-                            'constraints' => [
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\CategoryController::class,
                                 'action'     => 'index',
                             ],
                         ],
@@ -101,12 +78,39 @@ return [
                     ],
                 ],
             ],
+            'category' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/category[/:id][/page/:page]',
+                    'constraints' => [
+                        'page' => '[0-9]+',
+                        'id'   => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'basket' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'       => '/basket[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-z]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\BasketController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\AboutController::class => InvokableFactory::class,
-            Controller\BasketController::class => InvokableFactory::class,
             Controller\OrderController::class => InvokableFactory::class,
         ],
     ],
@@ -144,17 +148,9 @@ return [
                         'label' => 'About us',
                         'route' => 'home/about-us',
                     ],
-                    'basket' => [
-                        'label' => 'Basket',
-                        'route' => 'home/basket',
-                    ],
                     'order' => [
                         'label' => 'Orders',
                         'route' => 'home/order',
-                    ],
-                    'category' => [
-                        'label' => 'Categories',
-                        'route' => 'home/category',
                     ],
                     'contact' => [
                         'label' => 'Contact Us',
@@ -202,10 +198,16 @@ return [
                             ],
                         ],
                     ],
-
                 ],
             ],
-
+            'category' => [
+                'label' => 'Categories',
+                'route' => 'category',
+            ],
+            'basket' => [
+                'label' => 'Basket',
+                'route' => 'home/basket',
+            ],
         ],
         'top_navigation' => [
             'home' => [

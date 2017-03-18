@@ -15,6 +15,9 @@ use Authentication\Service\ValidationServiceInterface;
 
 class ProductController extends AbstractActionController
 {
+    const URL_FOR_HOME_PAGE     = './data/items-count-per-page/products-count-per-home-page.txt';
+    const URL_FOR_CATEGORY_PAGE = './data/items-count-per-page/products-count-per-category-page.txt';
+
     private $entityManager;
     private $formService;
     private $validationService;
@@ -36,6 +39,27 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+
+            $result = $request->getPost()->toArray();
+            $keys = array_keys($result);
+
+            switch ($keys[0]) {
+                case 'products_count_per_home_page':
+                    $products_count_per_home_page = abs((int)$request->getPost('products_count_per_home_page'));
+                    if (is_file(self::URL_FOR_HOME_PAGE)) {
+                        file_put_contents(self::URL_FOR_HOME_PAGE, $products_count_per_home_page);
+                    }
+                break;
+                case 'products_count_per_category_page':
+                    $products_count_per_category_page = abs((int)$request->getPost('products_count_per_category_page'));
+                    if (is_file(self::URL_FOR_CATEGORY_PAGE)) {
+                        file_put_contents(self::URL_FOR_CATEGORY_PAGE, $products_count_per_category_page);
+                    }
+                break;
+            }
+        }
         return new ViewModel();
     }
 
@@ -133,7 +157,7 @@ class ProductController extends AbstractActionController
                 $this->entityManager->persist($product);
                 $this->entityManager->flush();
 
-                $this->flashMessenger()->setNamespace('success')->addMessage('Product added');
+                $this->flashMessenger()->setNamespace('success')->addMessage('Product edited');
 
                 return $this->redirect()->toRoute('admin/products');
             }

@@ -3,22 +3,29 @@ $headTitle = 'Home';
 $this->headTitle($headTitle);
 ?>
 <br>
-<?php if (count($this->products) == 0) : ?>
-<h5>List is empty</h5>
+<?php if (! is_object($this->products) || count($this->products) == 0) : ?>
+    <h5>List is empty</h5>
 <?php else : ?>
 <div class="row">
     <?php foreach ($this->products as $product) : ?>
         <div class="col-xs-6 col-sm-3 items-panel">
             <div class="panel">
-                <div class="panel-body text-center">
-                    <img src="<?= $this->escapeHtml($product->getImage()) ?>" class="img-responsive" alt="product-image">
+                <div class="panel-body text-center img-box">
+                    <div>
+                        <?php if ($product->getIsNew() == 1) : ?>
+                            <img src="/img/home/new.png" class="img-responsive newHomePage" alt="new">
+                        <?php endif; ?>
+                        <img src="<?= $this->escapeHtml($product->getImage()) ?>" class="img-responsive" alt="product-image">
+                    </div>
                 </div>
                 <h5 class="panel-title text-center">
                     <a href="/product/<?= $this->escapeHtml($product->getId()) ?>"><?= $this->escapeHtml($product->getName()) ?></a>
                 </h5>
                 <div class="panel-footer">
                     <span>Price $<?= $this->escapeHtml($product->getPrice()) ?></span>
-                    <span class="pull-right"><a href="#">Add to cart</a></span>
+                    <span class="pull-right">
+                        <a href="#" class="add-to-cart" data-id="<?= (int)$product->getId()?>">Add to cart</a>
+                    </span>
                 </div>
             </div>
         </div>

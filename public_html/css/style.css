@@ -222,6 +222,46 @@ input:-ms-input-placeholder {font-size: 12px;}
     padding-right: 17px;
 }
 
+.img-box {
+    position: relative;
+    display: inline-block;
+}
+
+.newHomePage {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.newProductPage {
+    position: absolute;
+    top: 0;
+    right: 50%;
+}
+
+.plus-minus-product {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.plus-minus-product a {
+    padding: 1px !important;
+}
+
+.plus-minus-product .badge {
+    background-color: #2196F3;
+}
+
+.basket-concrete-product-count {
+    border: 1px solid #ddd;
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+.h6-basket-selected-products {
+    margin: 26px 0 15px;
+}
+
 
 
 

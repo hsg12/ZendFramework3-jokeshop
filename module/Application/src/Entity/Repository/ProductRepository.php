@@ -24,7 +24,7 @@ class ProductRepository extends EntityRepository
         return $result ? $result : false;
     }
 
-    public function getProductsQueryBuilder(EntityManagerInterface $entityManager)
+    public function getProductsQueryBuilderForHomePage(EntityManagerInterface $entityManager)
     {
         $qb = $entityManager->createQueryBuilder();
         $qb->select('p')
@@ -33,5 +33,31 @@ class ProductRepository extends EntityRepository
            ->orderBy('p.id', 'DESC');
 
         return $qb ? $qb : false;
+    }
+
+    public function getProductsQueryBuilderForCategoryPage(EntityManagerInterface $entityManager, $categoryId)
+    {
+        $qb = $entityManager->createQueryBuilder();
+        $qb->select('p')
+            ->from(Product::class, 'AS p')
+            ->where('p.category = :categoryId')
+            ->andWhere('p.status = 1')
+            ->orderBy('p.id', 'DESC')
+            ->setParameter('categoryId', $categoryId);
+
+        return $qb ? $qb : false;
+    }
+
+    public function getSelectedProductsByIds(EntityManagerInterface $entityManager, $ids)
+    {
+        $sql  = "SELECT p ";
+        $sql .= "FROM " . Product::class;
+        $sql .= " AS p ";
+        $sql .= "WHERE p.id IN (:ids)";
+
+        $query = $entityManager->createQuery($sql)->setParameter('ids', $ids);
+        $result = $query->getResult();
+
+        return $result ? $result : false;
     }
 }

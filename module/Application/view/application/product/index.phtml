@@ -1,11 +1,15 @@
 <?php
 $headTitle = $this->escapeHtml($this->product->getName());
 $this->headTitle($headTitle);
+$productCount = $this->productCount;
 ?>
 <br>
 <div class="row">
     <div class="col-lg-10 col-md-9">
-        <div>
+        <div class="img-box">
+            <?php if ($this->product->getIsNew() == 1) : ?>
+                <img src="/img/home/new.png" class="img-responsive newProductPage" alt="new">
+            <?php endif; ?>
             <img src="<?= $this->escapeHtml($this->product->getImage()) ?>"
                  alt="product-image"
                  class="img-responsive"
@@ -13,7 +17,8 @@ $this->headTitle($headTitle);
                  height="50%"
             >
         </div>
-        <div><strong>Category:</strong> <em><?= $this->escapeHtml($this->product->getCategory()->getName()) ?></em></div>
+        <div><strong>Category:</strong> <?= $this->escapeHtml($this->product->getCategory()->getName()) ?></div>
+        <div><strong>Price:</strong> US $<?= $this->escapeHtml($this->product->getPrice()) ?></div>
         <hr>
         <div>
             <h5>Description:</h5>
@@ -24,10 +29,12 @@ $this->headTitle($headTitle);
     <div class="col-lg-2 col-md-3 col-xs-6 text-center">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Price</h3>
+                <h3 class="panel-title">Total</h3>
             </div>
             <div class="panel-body active">
-                $ <span class="badge"><?= $this->escapeHtml($this->product->getPrice()) ?></span>
+                $ <span class="badge product-price">
+                    <?= $productCount > 1 ? number_format($productCount * $this->product->getPrice(), 2) : $this->product->getPrice(); ?>
+                </span>
             </div>
         </div>
         <div class="panel panel-primary">
@@ -35,10 +42,14 @@ $this->headTitle($headTitle);
                 <h3 class="panel-title">Count</h3>
             </div>
             <div class="panel-body active">
-                <span class="badge">0</span>
+                <span class="badge count-concrete-product">
+                    <?= \Application\Model\Cart::countConcreteProduct($this->product->getId())?>
+                </span>
             </div>
         </div>
         <hr>
-        <a href="#" class="btn btn-default add-to-cart-button">Add to cart</a>
+        <a href="#" class="btn btn-default add-to-cart-button add-to-cart" data-id="<?= (int)$this->product->getId()?>">
+            Add to cart
+        </a>
     </div>
 </div>

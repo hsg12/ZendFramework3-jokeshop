@@ -5,17 +5,25 @@ $this->headTitle($headTitle);
 <?php $this->getFlashMessenger($this->flashMessenger()) ?>
 <div class="row">
     <div class="col-sm-6">
-        <form class="navbar-form navbar-left admin-product-form" role="search">
+        <form action="<?= $this->url('admin/products') ?>" method="post" class="navbar-form navbar-left admin-product-form" role="search">
             <div class="form-group">
-                <input class="form-control" placeholder="Products count per home page" type="text">
+                <input class="form-control"
+                       placeholder="Products count per home page"
+                       type="text"
+                       name="products_count_per_home_page"
+                >
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
     <div class="col-sm-6">
-        <form class="navbar-form navbar-right" role="search">
+        <form action="<?= $this->url('admin/products') ?>" method="post" class="navbar-form navbar-right" role="search">
             <div class="form-group">
-                <input class="form-control" placeholder="Products count per category page" type="text">
+                <input class="form-control"
+                       placeholder="Products count per category page"
+                       type="text"
+                       name="products_count_per_category_page"
+                >
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>

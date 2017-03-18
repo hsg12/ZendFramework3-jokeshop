@@ -48,7 +48,7 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="price", type="decimal", precision=7, scale=2, nullable=false, unique=false)
      *
      * @Annotation\Type("Zend\Form\Element\Text")
      * @Annotation\Attributes({"class":"form-control", "id":"price", "required":"required"})
@@ -58,7 +58,7 @@ class Product
      * @Annotation\Validator({
      *     "name":"regex",
      *     "options":{
-     *         "pattern":"/^\d+[.]?\d+$/",
+     *         "pattern":"/^\d{1,4}[.]?([0-9]{0}|[0-9]{2})$/",
      *         "messages":{
      *             "regexNotMatch":"Please input a valid price"
      *         },
