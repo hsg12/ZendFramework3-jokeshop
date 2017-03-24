@@ -1,0 +1,63 @@
+<?php
+$headTitle = 'Order data';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/orders', ['page' => $this->page, 'action' => 'show', 'id' => $this->id]));
+$form->prepare();
+
+$label = $this->formLabel($form->get('status')->setLabelAttributes(['class' => 'control-label', 'style' => 'font-weight: bold;']));
+$status = $this->formSelect($form->get('status'));
+?>
+<br>
+<?php if (! $this->orderData) : ?>
+    <h5>List is empty</h5>
+<?php else : ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <?php foreach ($this->orderData as $key => $order) : ?>
+                <?php foreach ($order['productData'] as $products) : ?>
+                    <div class="my-order-bottom-panel">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-3">
+                                <img src="<?= $this->escapeHtml($products[0]->getImage()) ?>" class="img-responsive" alt="product">
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-9">
+                                <div><strong>Product name</strong>: <?= $this->escapeHtml($products[0]->getName()) ?></div>
+                                <div><strong>Price:</strong> US $<?= number_format($products[0]->getPrice(), 2) ?></div>
+                                <div><strong>Count:</strong> <?= (int)$products[1] ?></div>
+                                <div><strong>Total:</strong> US $<?= number_format($products[1] * $products[0]->getPrice(), 2) ?></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                <?php if ($key != count($this->userOrders) - 1) : ?>
+                    <hr>
+                <?php endif; ?>
+                <div>
+                    <div><strong>Customer:</strong> <?= $order['userData']->getUserName() ?></div>
+                    <div><strong>Email address:</strong> <?= $order['userData']->getUserEmail() ?></div>
+                    <div><strong>Order date:</strong> <?= $order['userData']->getOrderDate()->format('d F Y'); ?></div>
+                    <div><strong>Phone:</strong> <?= $order['userData']->getUserPhone(); ?></div>
+                    <div><strong>Address:</strong> <?= $order['userData']->getUserAddress(); ?></div>
+                    <br>
+                    <div>
+                        <?= $this->form()->openTag($form) ?>
+                        <div class="form-group">
+                            <div class="col-sm-1"><?= $label ?></div>
+                            <div class="col-sm-4"><?= $status ?></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-sm-offset-1">
+                                <?= $this->formSubmit($form->get('submit')->setValue('Edit')) ?>
+                            </div>
+                        </div>
+                        <?= $this->form()->closeTag() ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+

@@ -19,13 +19,22 @@ $this->headTitle($headTitle);
                         </div>
                     </div>
                     <h5 class="panel-title text-center">
-                        <a href="/product/<?= $this->escapeHtml($product->getId()) ?>"><?= $this->escapeHtml($product->getName()) ?></a>
+                        <a href="/product/<?= $this->escapeHtml($product->getId()) ?>">
+                            <?= $this->cutStr($this->escapeHtml($product->getName()), 13) ?>
+                        </a>
                     </h5>
                     <div class="panel-footer">
                         <span>Price $<?= $this->escapeHtml($product->getPrice()) ?></span>
-                        <span class="pull-right">
-                            <a href="#" class="add-to-cart" data-id="<?= (int)$product->getId()?>">Add to cart</a>
+                        <span class="pull-right add-to-cart-box">
+                            <a href="#"
+                               class="add-to-cart"
+                               data-id="<?= (int)$product->getId()?>"
+                               data-identity="<?= $this->identity() ? 'true' : 'false'; ?>"
+                            >
+                                Add to cart
+                            </a>
                         </span>
+                        <strong id="sign-in-obligatory" class="color-red"></strong>
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@ $productCount = $this->productCount;
             </div>
             <div class="panel-body active">
                 $ <span class="badge product-price">
-                    <?= $productCount > 1 ? number_format($productCount * $this->product->getPrice(), 2) : $this->product->getPrice(); ?>
+                    <?= $productCount > 0 ? number_format($productCount * $this->product->getPrice(), 2) : 0; ?>
                 </span>
             </div>
         </div>
@@ -48,8 +48,15 @@ $productCount = $this->productCount;
             </div>
         </div>
         <hr>
-        <a href="#" class="btn btn-default add-to-cart-button add-to-cart" data-id="<?= (int)$this->product->getId()?>">
-            Add to cart
-        </a>
+        <span class="add-to-cart-box">
+            <a href="#"
+               class="btn btn-default add-to-cart-button add-to-cart"
+               data-id="<?= (int)$this->product->getId()?>"
+               data-identity="<?= $this->identity() ? 'true' : 'false'; ?>"
+            >
+                Add to cart
+            </a>
+        </span>
+        <strong id="sign-in-obligatory" class="color-red product-sign-in-obligatory"></strong>
     </div>
 </div>

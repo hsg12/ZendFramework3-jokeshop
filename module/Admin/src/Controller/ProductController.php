@@ -12,6 +12,9 @@ use Application\Entity\Product;
 use Application\Entity\Category;
 use Zend\Form\FormInterface;
 use Authentication\Service\ValidationServiceInterface;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 
 class ProductController extends AbstractActionController
 {
@@ -39,6 +42,22 @@ class ProductController extends AbstractActionController
 
     public function indexAction()
     {
+        $productsQueryBuilder = $this->entityManager
+                                     ->getRepository(Product::class)
+                                     ->getProductsQueryBuilderForHomePage($this->entityManager, false);
+
+        $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
+        $paginator = new Paginator($adapter);
+
+        $currentPageNumber = (int)$this->params()->fromRoute('page', 1);
+        $paginator->setCurrentPageNumber($currentPageNumber);
+
+
+        $itemCountPerPage = 10;
+        $paginator->setItemCountPerPage($itemCountPerPage);
+
+        $pageNumber = (int)$paginator->getCurrentPageNumber();
+
         $request = $this->getRequest();
         if ($request->isPost()) {
 
@@ -60,7 +79,10 @@ class ProductController extends AbstractActionController
                 break;
             }
         }
-        return new ViewModel();
+        return new ViewModel([
+            'products' => $paginator,
+            'productsCnt'  => ($currentPageNumber - 1) * $itemCountPerPage,
+        ]);
     }
 
     public function hasChildCategories($request, $form)

@@ -64,7 +64,7 @@
                             <li>
                                 <a href="/basket">
                                     <i class="fa fa-shopping-basket app-basket" aria-hidden="true"></i>
-                                    <span class="badge badge-basket"><?= \Application\Model\Cart::countProducts() ?></span>
+                                    <span class="badge selected-product-total-count"><?= \Application\Model\Cart::countProducts() ?></span>
                                 </a>
                             </li>
                         <?php else : ?>
@@ -108,12 +108,19 @@
                                 <li class="admin-area"><a href="/admin">Admin</a></li>
                             </ul>
                         <?php endif; ?>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Search" type="text">
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
+                        <div class="search-block-per-main-page">
+                            <form action="<?= $this->url('home', ['action' => 'search']) ?>"
+                                  method="post"
+                                  class="navbar-form navbar-right searchOnMainPage"
+                                  role="search"
+                            >
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Search" type="text" name="searchProduct">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                            <ul id="mainPageSearchResult" class="list-unstyled"></ul>
+                        </div>
                     </div>
                 </div>
             </nav>

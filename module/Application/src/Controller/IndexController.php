@@ -7,6 +7,8 @@
 
 namespace Application\Controller;
 
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,5 +50,32 @@ class IndexController extends AbstractActionController
         return new ViewModel([
             'products' => $paginator,
         ]);
+    }
+
+    public function searchAction()
+    {
+        $request  = $this->getRequest();
+        $response = $this->getResponse();
+
+        $product = false;
+
+        if (! $request->isPost()) {
+            return $this->notFoundAction();
+        }
+
+        if (! empty($request->getPost('searchProduct'))) {
+            $search = $request->getPost('searchProduct');
+
+            $stripTags = new StripTags();
+            $search = $stripTags->filter($search);
+
+            $stringTrim = new StringTrim();
+            $search = $stringTrim->filter($search);
+
+            $product = $this->entityManager->getRepository(Product::class)->search($this->entityManager, $search);
+        }
+
+        $response->setContent(\Zend\Json\Json::encode($product));
+        return $response;
     }
 }

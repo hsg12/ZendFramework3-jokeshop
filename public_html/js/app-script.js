@@ -21,12 +21,9 @@ $(function(){
 
     $('#back-to-top').tooltip('show');
 
-
 /////////   Settings   //////////////////////////////////////////////////////////////////
 
-    if ($(document).width() < 430) {
-        $('.welcome').css('marginTop', 0);
-    }
+
 
     if ($(document).width() < 768) {
         $('.carousel-caption').css('padding', 0);
@@ -38,11 +35,51 @@ $(function(){
         $('.admin-product-form').css('paddingLeft', '15px');
         $('.admin-add-product-block').removeClass('pull-right');
         $('.admin-product-edit-img').css('width', '50%');
+        $('.basket-cancel-button').removeClass('pull-right').css('marginTop', '10px');
+        $('.my-order-bottom-panel img').css({
+            width: '40%',
+            height: '40%',
+            marginBottom: '20px',
+        });
+        $('#mainPageSearchResult').css({
+            left: '14px',
+            top: '290px'
+        });
     }
 
     if ($(document).width() < 992) {
         $('.items-panel .panel-footer span:first-child + span').removeClass('pull-right').css('display', 'block');
         $('.items-panel .panel-footer').addClass('text-center');
+        $('strong#sign-in-obligatory').css({
+            left: '1px',
+            bottom: '0px',
+            width: '100%',
+            textAlign: 'center'
+        });
+        $('strong#sign-in-obligatory.product-sign-in-obligatory').css({
+            left: '2px',
+            bottom: '-36px',
+            width: '100%',
+            textAlign: 'center'
+        });
+    }
+
+    if ($(document).width() < 282) {
+        $('strong#sign-in-obligatory.product-sign-in-obligatory').css({
+            bottom: '-60px',
+        });
+    }
+
+    if ($(document).width() < 430) {
+        $('.welcome').css('marginTop', 0);
+        $('.carousel-caption h5').css('fontSize', '9px');
+        $('.carousel-caption div').css('fontSize', '9px');
+    }
+
+    if ($(document).width() < 1200) {
+        $('strong#sign-in-obligatory.product-sign-in-obligatory').css({
+            right: '35px'
+        });
     }
 
     if ($(document).width() < 340) {
@@ -161,7 +198,21 @@ $(function(){
 
 /////////   Add to cart   ///////////////////////////////////////////////////////////////
 
+    var signInMessage = function (obj, message) {
+        obj.parent().next('#sign-in-obligatory').text(message).fadeIn(300);
+        setTimeout(function() {
+            obj.parent().next('#sign-in-obligatory').text(message).fadeOut(300);
+        }, 3000);
+    };
+
     var addToCart = function(){
+        var obj = $(this);
+        var identity = $('.add-to-cart').attr('data-identity');
+        if (identity == 'false') {
+            signInMessage(obj, 'Sign in for this action.');
+            return false;
+        }
+
         var id = $(this).attr('data-id');
         var obj = $(this);
 
@@ -171,7 +222,7 @@ $(function(){
             dataType: 'json',
             success: function(data){
                 if (data) {
-                    $('.badge-basket').text(data.countProducts);
+                    $('.selected-product-total-count').text(data.countProducts);
                     $('.count-concrete-product').text(data.countConcreteProduct);
                     obj.parent().siblings('li').eq(0).children('span').text(data.countConcreteProduct);
                     $('.product-price').text((data.price * data.countConcreteProduct).toFixed(2));
@@ -198,6 +249,7 @@ $(function(){
             dataType: 'json',
             success: function(data){
                 if (data) {
+                    $('.selected-product-total-count').text(data.countProducts);
                     obj.parent().prev().children('span.basket-concrete-product-count').text(data.countConcreteProduct);
                     obj.parent().parent().parent().siblings('.basket-price').children('span').text((data.price * data.countConcreteProduct).toFixed(2));
                     $('.total-price').text(data.totalPrice.toFixed(2));
@@ -217,9 +269,64 @@ $(function(){
         noText: 'Cancel'
     });
 
-/////////
+    $('.delete-concrete-product-admin').jConfirmAction({
+        question: 'Are you sure?',
+        noText: 'Cancel'
+    });
 
+    $('.delete-from-slider').jConfirmAction({
+        question: 'Are you sure?',
+        noText: 'Cancel'
+    });
 
+/////////   For tooltip   ///////////////////////////////////////////////////////////////
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+/////////   Search on main page   ///////////////////////////////////////////////////////
+
+    var searchOnMainPage = function(){
+        var search = $('.searchOnMainPage').serialize();
+
+        $.ajax({
+            url: '/home/search',
+            type: 'post',
+            dataType: 'json',
+            data: search,
+            success: function(data){
+                if (data) {
+                    $('#mainPageSearchResult li').remove();
+                    for (var key in data) {
+                        var append = '<li><a href="/product/' + data[key]['id'] + '">' + data[key]['name'] + '</a></li>'
+                        $('#mainPageSearchResult').append(append);
+                    }
+
+                    if (($('#mainPageSearchResult').is(':visible')) === false) {
+                        $('#mainPageSearchResult').slideToggle(300);
+                    }
+                } else {
+                    $('#mainPageSearchResult li').remove();
+                    $('#mainPageSearchResult').append('<li>Nothing found</li>');
+
+                    if (($('#mainPageSearchResult').is(':visible')) === false) {
+                        $('#mainPageSearchResult').slideToggle(300);
+                    }
+                }
+            }
+        });
+
+        return false;
+    };
+
+    $('.searchOnMainPage').on('submit', searchOnMainPage);
+
+    $(document).on('click', function(){
+        $('#mainPageSearchResult').css('display', 'none');
+    });
+
+/////////   Settings for admin slider form   ////////////////////////////////////////////
+
+    $('#slider input:eq(3)').removeClass('form-control');
 });
 
 

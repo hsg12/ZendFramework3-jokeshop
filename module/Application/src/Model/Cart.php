@@ -9,7 +9,7 @@ class Cart
     protected static function sessionContainer()
     {
         $container = new Container('products');
-        //$container->setExpirationSeconds(60*60);
+        $container->setExpirationSeconds(30*60);
         return $container;
     }
 
@@ -43,7 +43,7 @@ class Cart
         }
 
         if (array_key_exists($id, $productsInCart)) {
-            if ($productsInCart[$id] > 0) {
+            if ($productsInCart[$id] > 1) {
                 $productsInCart[$id]--;
             }
         }
@@ -98,5 +98,17 @@ class Cart
         }
 
         return $total;
+    }
+
+    public static function clearProductsSession()
+    {
+        $container = new Container('products');
+
+        if ($container) {
+            $container->getManager()->getStorage()->clear('products');
+            return true;
+        }
+
+        return false;
     }
 }

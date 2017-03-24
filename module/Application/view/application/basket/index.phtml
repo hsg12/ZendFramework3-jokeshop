@@ -19,7 +19,9 @@ $this->headTitle($headTitle);
         <?php foreach ($this->products as $product) : ?>
         <tr>
             <td>
-                <a href="/product/<?= (int)$product->getId() ?>"><?= $this->escapeHtml($product->getName()) ?></a>
+                <a href="/product/<?= (int)$product->getId() ?>">
+                    <?= $this->cutStr($this->escapeHtml($product->getName()), 13) ?>
+                </a>
             </td>
             <td>
                 <img src="<?= $this->escapeHtml($product->getImage()) ?>" width="30px" height="30px">
@@ -51,25 +53,38 @@ $this->headTitle($headTitle);
             </td>
             </td>
             <td>
-                <i class="glyphicon glyphicon-trash"></i><a href="#" class="delete-concrete-product"> Delete</a>
+                <form action="<?= $this->url('basket', ['action' => 'delete', 'id' => (int)$product->getId()]) ?>"
+                      method="post"
+                      class="form-delete-button delete-concrete-product"
+                >
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <button>Delete</button>
+                </form>
             </td>
         </tr>
         <?php endforeach; ?>
     </table>
 </div>
 <br>
-<br>
 <div>
-    <strong>Total price</strong> US $
+    <strong>Total count:</strong>
+    <strong  class="selected-product-total-count color-red"><?= $this->totalCount ?></strong>
+</div>
+<div>
+    <strong>Total price:</strong> US $
     <strong  class="total-price color-red"><?= number_format($this->totalPrice, 2) ?></strong>
 </div>
 <hr>
-<div class="row">
+<div class="row basket-continue-cancel-buttons-box">
     <div class="col-sm-6">
-        <a href=#" class="btn btn-primary">Continue</a>
+        <a href="<?= $this->url('order', ['action' => 'add']) ?>" class="btn btn-primary">Continue</a>
     </div>
     <div class="col-sm-6">
-        <a href="<?= $this->url('basket', ['action' => 'clear']) ?>" class="btn btn-danger pull-right">Cancel</a>
+        <a href="<?= $this->url('basket', ['action' => 'clear']) ?>"
+           class="btn btn-danger pull-right basket-cancel-button"
+        >
+            Cancel
+        </a>
     </div>
 </div>
 <?php endif; ?>

@@ -39,8 +39,7 @@
                 if ($.isFunction(options.confirm)) {
                     options.confirm($this);
                 } else {
-                    //else redirect
-                    window.location = $this.attr('href')
+                    $this.submit(); // Added in code
                 }
                 removePopUp();
             });

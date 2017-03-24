@@ -32,14 +32,19 @@ class BasketController extends AbstractActionController
             $products = $this->repository->getSelectedProductsByIds($this->entityManager, $ids);
 
             $totalPrice = Cart::getTotalPrice($products);
+            $totalCount = Cart::countProducts();
 
-            array_unshift($dataArray, $productsSession, $products, $totalPrice);
+            array_unshift($dataArray, $productsSession, $products, $totalPrice, $totalCount);
             return $dataArray;
         }
     }
 
     public function indexAction()
     {
+        if (! $this->identity()) {
+            return $this->notFoundAction();
+        }
+
         $dataArray = $this->getData();
 
         $this->layout('layout/alternativeLayout');
@@ -47,6 +52,7 @@ class BasketController extends AbstractActionController
             'productsSession' => $dataArray[0],
             'products'        => $dataArray[1],
             'totalPrice'      => $dataArray[2],
+            'totalCount'      => (int)$dataArray[3],
         ]);
     }
 
@@ -117,14 +123,26 @@ class BasketController extends AbstractActionController
 
     public function clearAction()
     {
-        $container = new Container('products');
-        $container->getManager()->getStorage()->clear('products');
-
+        Cart::clearProductsSession();
         return $this->redirect()->toRoute('basket');
     }
 
     public function deleteAction()
     {
+        $request = $this->getRequest();
+        if (! $request->isPost()) {
+            return $this->notFoundAction();
+        }
 
+        $id = (int)$this->params()->fromRoute('id', 0);
+        $selectedProducts = Cart::getProducts();
+        $container = new Container('products');
+
+        if ($id && $selectedProducts) {
+            unset($selectedProducts[$id]);
+            $container->products = $selectedProducts;
+        }
+
+        return $this->redirect()->toRoute('basket');
     }
 }

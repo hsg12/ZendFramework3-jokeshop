@@ -262,6 +262,117 @@ input:-ms-input-placeholder {font-size: 12px;}
     margin: 26px 0 15px;
 }
 
+.form-delete-button {
+    display: inline-block;
+}
+
+.form-delete-button button {
+    border: none;
+    background: none;
+    color: #2196f3;
+    padding-left: 0;
+}
+
+.form-delete-button button:hover {
+    color: #0a6ebd;
+}
+
+.basket-continue-cancel-buttons-box a {
+    width: 100px;
+}
+
+.add-to-cart-box {
+    position: relative;
+}
+
+.add-to-cart-box a:hover, .add-to-cart-box a:focus {
+    text-decoration: none;
+}
+
+#sign-in-obligatory {
+    width: 110px;
+    display: none;
+    position: absolute;
+    bottom: -20px;
+    right: 7px;
+    background: #fff;
+    font-size: 14px;
+    text-align: center;
+    z-index: 100;
+}
+
+#sign-in-obligatory.product-sign-in-obligatory {
+    bottom: -60px;
+    right: 18px;
+}
+
+.tooltip-inner {
+    color: #ffffff;
+    background-color: #2196F3;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right-color: #2196F3 !important;
+}
+
+.tooltip.left .tooltip-arrow {
+    border-left-color: #2196F3 !important;
+}
+
+.tooltip.top .tooltip-arrow {
+    border-top-color: #2196F3 !important;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #2196F3 !important;
+}
+
+.my-order-top-panel {
+    text-align: center;
+}
+
+.my-order-top-panel div {
+    margin-top: -10px;
+}
+
+.my-order-bottom-panel {
+    margin-top: 40px;
+}
+
+.search-block-per-main-page {
+    //display: inline-block;
+    //position: relative;
+    //float: right;
+}
+
+.searchOnMainPage {
+    //display: inline-block;
+    //position: relative;
+    //float: right;
+}
+
+#mainPageSearchResult {
+    position: absolute;
+    top: 77px;
+    right: 98px;
+    //left: 0;
+    z-index: 100;
+    background: #eee;
+    width: 198px;
+    max-height: 200px;
+    overflow: auto;
+    display: none;
+    border-radius: 3px;
+    padding: 5px 0;
+}
+
+#mainPageSearchResult li {
+    margin-left: 10px;
+}
+
+#bs-example-navbar-collapse-1 {
+    position: relative;
+}
 
 
 

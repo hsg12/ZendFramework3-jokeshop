@@ -32,9 +32,11 @@ return [
             'home' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/[page/:page]',
+                    'route'    => '/[page/:page][home/:action[/:id]]',
                     'constraints' => [
-                        'page' => '[0-9]+',
+                        'page'   => '[0-9]+',
+                        'action' => '[a-z]*',
+                        'id'     => '[0-9]+',
                     ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
@@ -43,16 +45,6 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'order' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route'    => 'order',
-                            'defaults' => [
-                                'controller' => Controller\OrderController::class,
-                                'action'     => 'index',
-                            ],
-                        ],
-                    ],
                     'product' => [
                         'type' => Segment::class,
                         'options' => [
@@ -106,12 +98,24 @@ return [
                     ],
                 ],
             ],
+            'order' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/order[/:action]',
+                    'constraints' => [
+                        'action' => '[a-z]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\OrderController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\AboutController::class => InvokableFactory::class,
-            Controller\OrderController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -144,14 +148,6 @@ return [
                         'label' => 'Login',
                         'route' => 'login',
                     ],
-                    'about' => [
-                        'label' => 'About us',
-                        'route' => 'home/about-us',
-                    ],
-                    'order' => [
-                        'label' => 'Orders',
-                        'route' => 'home/order',
-                    ],
                     'contact' => [
                         'label' => 'Contact Us',
                         'route' => 'contact-us',
@@ -159,6 +155,29 @@ return [
                     'portfolio' => [
                         'label' => 'Portfolio',
                         'route' => 'portfolio',
+                    ],
+                    'about' => [
+                        'label' => 'About us',
+                        'route' => 'about-us',
+                    ],
+                    'category' => [
+                        'label' => 'Categories',
+                        'route' => 'category',
+                    ],
+                    'basket' => [
+                        'label' => 'Basket',
+                        'route' => 'basket',
+                    ],
+                    'order' => [
+                        'label' => 'Orders',
+                        'route' => 'order',
+                        'pages' => [
+                            'add' => [
+                                'label'  => 'Add',
+                                'route'  => 'order',
+                                'action' => 'add',
+                            ],
+                        ],
                     ],
                     'admin' => [
                         'label' => 'Admin area',
@@ -187,6 +206,18 @@ return [
                             'slider' => [
                                 'label' => 'Slider',
                                 'route' => 'admin/slider',
+                                'pages' => [
+                                    'add' => [
+                                        'label'  => 'Add',
+                                        'route'  => 'admin/slider',
+                                        'action' => 'add',
+                                    ],
+                                    'edit' => [
+                                        'label'  => 'Edit',
+                                        'route'  => 'admin/slider',
+                                        'action' => 'edit',
+                                    ],
+                                ],
                             ],
                             'user' => [
                                 'label' => 'Users',
@@ -195,18 +226,17 @@ return [
                             'order' => [
                                 'label' => 'Orders',
                                 'route' => 'admin/orders',
+                                'pages' => [
+                                    'add' => [
+                                        'label'  => 'Order data',
+                                        'route'  => 'admin/orders',
+                                        'action' => 'show',
+                                    ],
+                                ],
                             ],
                         ],
                     ],
                 ],
-            ],
-            'category' => [
-                'label' => 'Categories',
-                'route' => 'category',
-            ],
-            'basket' => [
-                'label' => 'Basket',
-                'route' => 'home/basket',
             ],
         ],
         'top_navigation' => [

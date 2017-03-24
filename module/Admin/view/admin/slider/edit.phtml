@@ -1,0 +1,65 @@
+<?php
+$headTitle = 'Edit slider';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/slider', ['action' => 'edit', 'id' => $this->id]));
+$form->prepare();
+?>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $this->form()->openTag($form) ?>
+                    <fieldset><legend>Fill the form please</legend>
+                        <?php
+                        foreach ($form as $element) {
+                            $label = '';
+                            $formElement = '';
+                            $attributes = $element->getAttributes();
+
+                            if ($element->getLabel()) {
+                                $label = $this->formLabel($element);
+                            }
+
+                            if (isset($attributes['type'])) {
+                                switch ($attributes['type']) {
+                                    case 'text':
+                                        $formElement .= '<div class="col-sm-10">';
+                                        $formElement .= $this->formText($element);
+                                        $formElement .= $this->formElementErrors($element);
+                                        $formElement .= '</div>';
+                                        break;
+                                    case 'checkbox':
+                                        $formElement .= '<div class="col-sm-10">';
+                                        $formElement .= $this->formCheckbox($element);
+                                        $formElement .= $this->formElementErrors($element);
+                                        $formElement .= '</div>';
+                                        break;
+                                    case 'file':
+                                        $formElement .= '<div class="col-sm-10">';
+                                        $formElement .= $this->formFile($element);
+                                        $formElement .= $this->formElementErrors($element);
+                                        $formElement .= '</div>';
+                                        break;
+                                    case 'submit':
+                                        $formElement .= '<div class="col-sm-12 col-sm-offset-2">';
+                                        $formElement .= $this->formSubmit($element);
+                                        $formElement .= $this->formElementErrors($element);
+                                        $formElement .= '</div>';
+                                        break;
+                                }
+                            }
+
+                            echo '<div class="form-group">' . $label . $formElement . '</div>';
+                        }
+                        ?>
+                    </fieldset>
+                    <?= $this->form()->closeTag() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

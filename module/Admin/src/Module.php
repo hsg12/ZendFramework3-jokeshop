@@ -35,6 +35,18 @@ class Module
                         $container->get('validationService')
                     );
                 },
+                Controller\OrderController::class => function ($container) {
+                    return new Controller\OrderController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService')
+                    );
+                },
+                Controller\SliderController::class => function ($container) {
+                    return new Controller\SliderController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService')
+                    );
+                },
             ],
         ];
     }
@@ -42,6 +54,9 @@ class Module
     public function getControllerPluginConfig()
     {
         return [
+            'invokables' => [
+                'getOrderData' => Controller\Plugin\GetOrderData::class,
+            ],
             'factories' => [
                 'getAccess' => function ($container) {
                     return new Controller\Plugin\GetAccess(

@@ -24,13 +24,15 @@ class ProductRepository extends EntityRepository
         return $result ? $result : false;
     }
 
-    public function getProductsQueryBuilderForHomePage(EntityManagerInterface $entityManager)
+    public function getProductsQueryBuilderForHomePage(EntityManagerInterface $entityManager, $considerStatus = true)
     {
         $qb = $entityManager->createQueryBuilder();
-        $qb->select('p')
-           ->from(Product::class, 'AS p')
-           ->where('p.status = 1')
-           ->orderBy('p.id', 'DESC');
+        $qb->select('p');
+        $qb->from(Product::class, 'AS p');
+        if ($considerStatus) {
+            $qb->where('p.status = 1');
+        }
+        $qb->orderBy('p.id', 'DESC');
 
         return $qb ? $qb : false;
     }

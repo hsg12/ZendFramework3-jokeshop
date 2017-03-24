@@ -1,0 +1,62 @@
+<?php
+$headTitle = 'Add order';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('order', ['action' => 'add']));
+$form->prepare();
+?>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+
+            <?= $this->form()->openTag($form) ?>
+            <fieldset>
+                <legend>Fill the form please</legend>
+                <?php
+                    foreach ($form as $element) {
+                        $formElement = '';
+                        $label = '';
+                        $attributes = $element->getAttributes();
+
+                        if ($element->getLabel()) {
+                            if (isset($attributes['required']) && $attributes['required'] == 'required') {
+                                $element->setLabel($element->getLabel() . ' *');
+                            }
+                            $element->setLabelAttributes(['class' => 'control-label col-md-2']);
+                        }
+
+                        if (isset($attributes['type'])) {
+                            switch ($attributes['type']) {
+                                case 'text':
+                                    $label = $this->formLabel($element);
+                                    $formElement .= '<div class="col-md-10">';
+                                    $formElement .= $this->formText($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                break;
+                                case 'email':
+                                    $label = $this->formLabel($element);
+                                    $formElement .= '<div class="col-md-10">';
+                                    $formElement .= $this->formEmail($element);
+                                    $formElement .= $this->formElementErrors($element);
+                                    $formElement .= '</div>';
+                                break;
+                                case 'submit':
+                                    $formElement .= '<div class="col-md-12 col-md-offset-2">';
+                                    $formElement .= $this->formSubmit($element);
+                                    $formElement .= '</div>';
+                                break;
+                            }
+                        }
+
+                        echo '<div class="form-group">' . $label . $formElement . '</div>';
+                    }
+                ?>
+            </fieldset>
+            <?= $this->form()->closeTag() ?>
+
+        </div>
+    </div>
+</div>

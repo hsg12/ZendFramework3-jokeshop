@@ -42,10 +42,11 @@ return [
                     'products' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/products[/:action[/:id]]',
+                            'route'    => '/products[/page/:page][/:action[/:id]]',
                             'constraints'    => [
                                 'action' => '[a-z-]*',
-                                'id' => '[0-9]+',
+                                'id'     => '[0-9]+',
+                                'page'   => '[0-9]+',
                             ],
                             'defaults' => [
                                 'controller' => Controller\ProductController::class,
@@ -84,10 +85,11 @@ return [
                     'orders' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/orders[/:action[/:id]]',
+                            'route'    => '/orders[/page/:page][/:action[/:id]]',
                             'constraints'    => [
                                 'action' => '[a-z-]*',
-                                'id' => '[0-9]+',
+                                'id'     => '[0-9]+',
+                                'page'   => '[0-9]+',
                             ],
                             'defaults' => [
                                 'controller' => Controller\OrderController::class,
@@ -103,9 +105,7 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\CategoryController::class => InvokableFactory::class,
-            Controller\SliderController::class => InvokableFactory::class,
             Controller\UserController::class => InvokableFactory::class,
-            Controller\OrderController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

@@ -2,5 +2,55 @@
 $headTitle = 'Manage slider';
 $this->headTitle($headTitle);
 ?>
-
+<?php $this->getFlashMessenger($this->flashMessenger()) ?>
+<br>
+<div><a href="<?= $this->url('admin/slider', ['action' => 'add']) ?>" class="btn btn-default">Add to slider</a></div>
+<?php if (! $this->slider) : ?>
+<br>
+<h5>List is empty</h5>
+<?php else : ?>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-responsive table-hover">
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th>
+                    <th>Is visible</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                <?php foreach ($this->slider as $item) : ?>
+                <tr>
+                    <td><?= $this->escapeHtml($item->getTitle()) ?></td>
+                    <td><?= $this->escapeHtml($item->getText()) ?></td>
+                    <td><?= $this->escapeHtml($item->getVisible()) ? 'Yes' : 'No'; ?></td>
+                    <td>
+                        <img  style="border: 1px solid #ddd;"
+                              src="<?= $this->escapeHtml($item->getImage()) ?>"
+                              width="100"
+                              height="50"
+                              alt="slider-image"
+                        >
+                    </td>
+                    <td>
+                        <a href="<?= $this->url('admin/slider', ['action' => 'edit', 'id' => (int)$item->getId()]) ?>">
+                            Edit
+                        </a>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <form action="<?= $this->url('admin/slider', ['action' => 'delete', 'id' => (int)$item->getId()]) ?>"
+                              method="post"
+                              class="form-delete-button delete-from-slider"
+                        >
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 

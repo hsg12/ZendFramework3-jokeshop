@@ -2,5 +2,60 @@
 $headTitle = 'Manage orders';
 $this->headTitle($headTitle);
 ?>
-
+<br>
+<?php if (! $this->orders) : ?>
+    <h5>List is empty</h5>
+<?php else : ?>
+    <?= $this->getFlashMessenger($this->flashMessenger()) ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>Customer</th>
+                        <th>Order date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <?php foreach ($this->orders as $order) : ?>
+                    <tr>
+                        <td><?= (int)++$this->ordersCnt ?></td>
+                        <td><?= $order->getUserName() ?></td>
+                        <td><?= $order->getOrderDate()->format('d F Y') ?></td>
+                        <td>
+                            <?php if ($this->escapeHtml($order->getStatus()) == 'Is accepted') : ?>
+                                <strong class='color-red'>New order</strong>
+                            <?php else : ?>
+                                <?= $this->escapeHtml($order->getStatus()) ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?= $this->url('admin/orders', ['page' => $this->pageNumber, 'action' => 'show', 'id' => $order->getId()]) ?>">
+                                Order
+                            </a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <form action="<?= $this->url('admin/orders', ['page' => $this->pageNumber, 'action' => 'delete', 'id' => $order->getId()]) ?>"
+                                  method="post"
+                                  class="form-delete-button delete-concrete-product-admin"
+                            >
+                                <button>Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <?php
+    echo $this->paginationControl(
+        $this->orders,
+        'sliding',
+        'partial/paginator',
+        ['route' => 'admin/orders']
+    );
+    ?>
+<?php endif; ?>
 

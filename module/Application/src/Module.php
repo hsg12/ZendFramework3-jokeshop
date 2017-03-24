@@ -23,8 +23,9 @@ class Module
     {
         return [
             'invokables' => [
-                'getYear' => View\Helper\GetYear::class,
+                'getYear'           => View\Helper\GetYear::class,
                 'getFlashMessenger' => View\Helper\GetFlashMessenger::class,
+                'cutStr'         => View\Helper\CutStr::class,
             ],
             'factories' => [
                 'getCategories' => function ($container) {
@@ -35,6 +36,11 @@ class Module
                 'GetRouteParams' => function ($container) {
                     return new View\Helper\GetRouteParams(
                         $container->get('Application')
+                    );
+                },
+                'getCarousel' => function ($container) {
+                    return new View\Helper\GetCarousel(
+                        $container->get(EntityManager::class)
                     );
                 },
             ],
@@ -72,6 +78,12 @@ class Module
                 Controller\BasketController::class => function ($container) {
                     return new Controller\BasketController(
                         $container->get(EntityManager::class)
+                    );
+                },
+                Controller\OrderController::class => function ($container) {
+                    return new Controller\OrderController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService')
                     );
                 },
             ],
