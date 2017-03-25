@@ -2,5 +2,17 @@
 $headTitle = 'Manage categories';
 $this->headTitle($headTitle);
 ?>
+<br>
+<?= $this->getFlashMessenger($this->flashMessenger()) ?>
+<br>
+<div><a href="<?= $this->url('admin/categories', ['action' => 'add']) ?>" class="btn btn-default">Add category</a></div>
+<?php if (! $this->categories) : ?>
+<h5>List is empty</h5>
+<?php else : ?>
+<div class="row">
+    <div class="col-sm-12">
 
 
+    </div>
+</div>
+<?php endif; ?>

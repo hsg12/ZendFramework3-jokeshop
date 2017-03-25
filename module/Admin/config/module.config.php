@@ -104,7 +104,6 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\CategoryController::class => InvokableFactory::class,
             Controller\UserController::class => InvokableFactory::class,
         ],
     ],

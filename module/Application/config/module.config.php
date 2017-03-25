@@ -186,6 +186,18 @@ return [
                             'category' => [
                                 'label' => 'Categories',
                                 'route' => 'admin/categories',
+                                'pages' => [
+                                    'add' => [
+                                        'label'  => 'Add',
+                                        'route'  => 'admin/categories',
+                                        'action' => 'add',
+                                    ],
+                                    'edit' => [
+                                        'label'  => 'Edit',
+                                        'route'  => 'admin/categories',
+                                        'action' => 'edit',
+                                    ],
+                                ],
                             ],
                             'product' => [
                                 'label' => 'Products',

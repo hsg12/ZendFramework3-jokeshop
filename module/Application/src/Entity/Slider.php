@@ -69,7 +69,7 @@ class Slider
      * @Annotation\Type("Zend\Form\Element\Checkbox")
      * @Annotation\Attributes({"class":"form-control", "id":"visible"})
      * @Annotation\Options({
-     *     "label":"Is visible",
+     *     "label":"Is visible ",
      *     "label_attributes":{"class":"text-right col-sm-2"},
      *     "set_hidden_element":"true",
      *     "checked_value":"1",

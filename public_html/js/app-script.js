@@ -327,6 +327,12 @@ $(function(){
 /////////   Settings for admin slider form   ////////////////////////////////////////////
 
     $('#slider input:eq(3)').removeClass('form-control');
+
+/////////   In order to add 0 to category list(Admin/Category(add, edit form))   ////////
+
+    $('<option value="0">New category</option>').insertAfter('form#category select option:first-child');
+
+/////////
 });
 
 

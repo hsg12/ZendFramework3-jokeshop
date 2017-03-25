@@ -47,6 +47,13 @@ class Module
                         $container->get('formService')
                     );
                 },
+                Controller\CategoryController::class => function ($container) {
+                    return new Controller\CategoryController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService'),
+                        $container->get('validationService')
+                    );
+                },
             ],
         ];
     }
