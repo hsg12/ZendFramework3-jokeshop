@@ -2,17 +2,42 @@
 $headTitle = 'Manage categories';
 $this->headTitle($headTitle);
 ?>
-<br>
 <?= $this->getFlashMessenger($this->flashMessenger()) ?>
 <br>
 <div><a href="<?= $this->url('admin/categories', ['action' => 'add']) ?>" class="btn btn-default">Add category</a></div>
 <?php if (! $this->categories) : ?>
 <h5>List is empty</h5>
 <?php else : ?>
+<br>
 <div class="row">
     <div class="col-sm-12">
-
-
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>Category name</th>
+                    <th>Parent category</th>
+                    <th>Actions</th>
+                </tr>
+                <?php foreach ($this->categories as $category) : ?>
+                <tr>
+                    <td><?= $this->escapeHtml($category->getName()) ?></td>
+                    <td><?= $this->escapeHtml($this->getCategoryParentName($category->getParentId())) ?></td>
+                    <td>
+                        <a href="<?= $this->url('admin/categories', ['action' => 'edit', 'id' => (int)$category->getId()]) ?>">
+                            Edit
+                        </a>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <form action="<?= $this->url('admin/categories', ['action' => 'delete', 'id' => (int)$category->getId()]) ?>"
+                              method="post"
+                              class="form-delete-button delete-category-admin"
+                        >
+                            <button>Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </table>
+        </div>
     </div>
 </div>
 <?php endif; ?>

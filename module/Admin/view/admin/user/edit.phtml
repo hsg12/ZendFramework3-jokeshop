@@ -1,0 +1,32 @@
+<?php
+$headTitle = 'Edit Users';
+$this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/users', ['action' => 'edit', 'id' => $this->id]));
+$form->prepare();
+
+$role = $this->escapeHtml($form->get('role')->getValue());
+$name = $this->escapeHtml($form->get('name')->getValue());
+$submit = $form->get('submit')->setValue('Edit ' . $role);
+?>
+<br>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div><strong>Name: </strong>&nbsp;&nbsp;<?= $name ?></div>
+        <?= $this->form()->openTag($form) ?>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <strong>Role:</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="radio-box">
+                    <?= $this->formRadio($form->get('role')) ?>
+                </span>
+            </div>
+        </div>
+        <?= $this->formSubmit($form->get('submit')) ?>
+        <?= $this->form()->closeTag() ?>
+    </div>
+</div>
+<hr>
+<div><a href="#" class="btn btn-default">Delete <?= $role ?></a></div>

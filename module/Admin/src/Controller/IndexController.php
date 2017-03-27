@@ -9,7 +9,11 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        return new ViewModel();
+    }
 
+    public function adminUserAction()
+    {
         return new ViewModel();
     }
 }

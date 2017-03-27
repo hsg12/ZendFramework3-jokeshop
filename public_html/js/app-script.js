@@ -279,6 +279,11 @@ $(function(){
         noText: 'Cancel'
     });
 
+    $('.delete-category-admin').jConfirmAction({
+        question: 'Are you sure?',
+        noText: 'Cancel'
+    });
+
 /////////   For tooltip   ///////////////////////////////////////////////////////////////
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -330,7 +335,11 @@ $(function(){
 
 /////////   In order to add 0 to category list(Admin/Category(add, edit form))   ////////
 
-    $('<option value="0">New category</option>').insertAfter('form#category select option:first-child');
+    //$('<option value="0">New category</option>').insertAfter('form#category select option:first-child');
+
+/////////   For form radio box   ////////////////////////////////////////////////////////
+
+    $('.radio-box label:eq(0)').append('&nbsp;&nbsp;&nbsp;');
 
 /////////
 });

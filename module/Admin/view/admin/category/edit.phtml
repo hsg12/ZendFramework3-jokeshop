@@ -1,5 +1,54 @@
 <?php
 $headTitle = 'Edit category';
 $this->headTitle($headTitle);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/categories', ['action' => 'edit', 'id' => $this->id]));
+$form->prepare();
+
+$name     = $form->get('name');
+$parentId = $form->get('parentId');
+$submit   = $form->get('submit');
+
+foreach ($form as $element) {
+    $attributes = $element->getAttributes();
+    if (isset($attributes['required']) && $attributes['required'] == 'required') {
+        $element->setLabel($element->getLabel() . ' *');
+    }
+}
+
 ?>
 <br>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $this->form()->openTag($form) ?>
+                    <fieldset><legend>Fill the form please</legend>
+                        <div class="form-group">
+                            <?= $this->formLabel($name) ?>
+                            <div class="col-sm-10">
+                                <?= $this->formText($name) ?>
+                                <?= $this->formElementErrors($name) ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($parentId) ?>
+                            <div class="col-sm-10">
+                                <?= $this->formSelect($parentId) ?>
+                                <?= $this->formElementErrors($parentId) ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-sm-offset-2">
+                                <?= $this->formSubmit($submit) ?>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <?= $this->form()->closeTag() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

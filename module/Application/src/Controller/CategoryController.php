@@ -27,6 +27,10 @@ class CategoryController extends AbstractActionController
         $id = (int)$this->getEvent()->getRouteMatch()->getParam('id');
         $category = $this->entityManager->getRepository(Category::class)->find($id);
 
+        if (! $id || ! $category) {
+            return $this->notFoundAction();
+        }
+
         $productsQueryBuilder = $this->entityManager
                                      ->getRepository(Product::class)
                                      ->getProductsQueryBuilderForCategoryPage($this->entityManager, $id);

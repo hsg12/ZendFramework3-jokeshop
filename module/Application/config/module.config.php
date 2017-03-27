@@ -234,6 +234,24 @@ return [
                             'user' => [
                                 'label' => 'Users',
                                 'route' => 'admin/users',
+                                'pages' => [
+                                    'edit' => [
+                                        'label'  => 'Edit',
+                                        'route'  => 'admin/users',
+                                        'action' => 'edit',
+                                    ],
+                                ],
+                            ],
+                            'admin' => [
+                                'label' => 'Admins',
+                                'route' => 'admin/admins',
+                                'pages' => [
+                                    'edit' => [
+                                        'label'  => 'Edit',
+                                        'route'  => 'admin/admins',
+                                        'action' => 'edit',
+                                    ],
+                                ],
                             ],
                             'order' => [
                                 'label' => 'Orders',

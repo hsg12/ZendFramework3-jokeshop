@@ -6,6 +6,9 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Category;
 
+
+
+
 class CategoryRepository extends EntityRepository
 {
     public function getCategoriesArray(EntityManagerInterface $entityManager)

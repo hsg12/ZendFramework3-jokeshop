@@ -28,7 +28,7 @@ class GetCategories extends AbstractHelper
             $categories[$value['parentId']][] = (object)$value;
         }
 
-        return $this->buildTree($categories, 0);
+        return $this->buildTree($categories, null);
 
     }
 

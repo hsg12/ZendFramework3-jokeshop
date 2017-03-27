@@ -170,6 +170,15 @@ class ProductController extends AbstractActionController
 
             $form->setData($data);
 
+            $productNameOld = $product->getName();
+            $productNameNew = trim(strip_tags($form->get('name')->getValue()));
+            $repository = $this->entityManager->getRepository(Product::class);
+
+            if ($repository->findBy(['name' => $productNameNew]) && $productNameNew != $productNameOld) {
+                $nameExists = 'Product with name "' . $productNameNew . '" exists already';
+                $form->get('name')->setMessages(['nameExists' => $nameExists]);
+            }
+
             if ($form->isValid() && empty($form->getMessages())) {
                 $product = $form->getData();
                 if ($fileName) {

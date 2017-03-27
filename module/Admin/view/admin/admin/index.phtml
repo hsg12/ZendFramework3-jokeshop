@@ -1,14 +1,14 @@
 <?php
-$headTitle = 'Manage Users';
+$headTitle = 'Manage Admins';
 $this->headTitle($headTitle);
 ?>
-<?php if (! $this->users) : ?>
+<?php if (! $this->admins) : ?>
     <h5>List is empty</h5>
 <?php else : ?>
     <div class="row">
         <div class="col-sm-12">
             <div><?php $this->getFlashMessenger($this->flashMessenger()) ?></div>
-            <h5>Users list</h5>
+            <h5>Admins list</h5>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <tr>
@@ -18,14 +18,14 @@ $this->headTitle($headTitle);
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
-                    <?php foreach ($this->users as $user) : ?>
+                    <?php foreach ($this->admins as $admin) : ?>
                         <tr>
                             <td>#</td>
-                            <td><?= $this->escapeHtml($user->getName()) ?></td>
-                            <td><?= $this->escapeHtml($user->getEmail()) ?></td>
-                            <td><?= $this->escapeHtml($user->getRole()) ?></td>
+                            <td><?= $this->escapeHtml($admin->getName()) ?></td>
+                            <td><?= $this->escapeHtml($admin->getEmail()) ?></td>
+                            <td><?= $this->escapeHtml($admin->getRole()) ?></td>
                             <td>
-                                <a href="<?= $this->url('admin/users', ['action' => 'edit', 'id' => (int)$user->getId()]) ?>">
+                                <a href="<?= $this->url('admin/admins', ['action' => 'edit', 'id' => (int)$admin->getId()]) ?>">
                                     Edit
                                 </a>
                             </td>

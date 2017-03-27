@@ -30,17 +30,16 @@ class Category
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="parent_id", type="integer", precision=0, scale=0, nullable=true, unique=false)
      *
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
-     * @Annotation\Attributes({"class":"form-control", "id":"parentId", "required":"required"})
-     * @Annotation\Required({"required":"true"})
+     * @Annotation\Attributes({"class":"form-control", "id":"parentId"})
      * @Annotation\Options({
-     *     "label":"Tree",
+     *     "label":"Parent",
      *     "label_attributes":{
      *         "class":"control-label col-sm-2"
      *     },
-     *     "empty_option":"Select new or parent category",
+     *     "empty_option":"Select parent category or don't select nothing, then it will be new category",
      *     "target_class":"Application\Entity\Category",
      *     "property":"name"
      * })

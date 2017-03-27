@@ -174,7 +174,7 @@ form ul li {
 }
 
 .title-render {
-    height: 56px;
+    min-height: 56px;
 }
 
 .title-render h1 {
@@ -373,6 +373,7 @@ input:-ms-input-placeholder {font-size: 12px;}
 #bs-example-navbar-collapse-1 {
     position: relative;
 }
+
 
 
 

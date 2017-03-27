@@ -3,12 +3,16 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Form\Annotation;
 
 /**
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="name_u_k", columns={"name"})})
  * @ORM\Entity(repositoryClass="Application\Entity\Repository\UserRepository")
+ *
+ * @Annotation\Name("user")
+ * @Annotation\Attributes({"class":"form-horizontal"})
  */
 class User
 {
@@ -18,6 +22,8 @@ class User
      * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Annotation\Exclude()
      */
     private $id;
 
@@ -53,6 +59,18 @@ class User
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=100, precision=0, scale=0, nullable=false, unique=false)
+     *
+     * @Annotation\Type("Zend\Form\Element\Radio")
+     * @Annotation\Attributes({"required":"required"})
+     * @Annotation\Required({"required":"true"})
+     * @Annotation\Options({
+     *     "value_options":{"admin":"admin", "user":"user"}
+     * })
+     * @Annotation\Validator({
+     *     "name":"inArray",
+     *     "options":{"haystack":{"admin", "user"}},
+     *     "messages":{"notInArray":"Role is not valid"},
+     * })
      */
     private $role = "user";
 
@@ -62,6 +80,13 @@ class User
      * @ORM\Column(name="registration_date", type="datetime", precision=0, scale=0, nullable=true, unique=false)
      */
     private $registrationDate;
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Submit")
+     * @Annotation\Attributes({"class":"btn btn-default", "value":"Submit"})
+     * @Annotation\AllowEmpty({"allowempty":"true"})
+     */
+    private $submit;
 
     public function __construct()
     {

@@ -52,6 +52,11 @@ class CategoryController extends AbstractActionController
             if ($form->isValid() && empty($form->getMessages())) {
                 $category = $form->getData();
 
+                /* In order do not select parent category (create new category)*/
+                if ($category->getParentId() == 0) {
+                    $category->setParentId(null);
+                }
+
                 $this->entityManager->persist($category);
                 $this->entityManager->flush();
 
@@ -68,6 +73,60 @@ class CategoryController extends AbstractActionController
 
     public function editAction()
     {
-        return new ViewModel();
+        $id = (int)$this->params()->fromRoute('id', 0);
+        $category = $this->repository->find($id);
+
+        if (! $id || ! $category) {
+            return $this->notFoundAction();
+        }
+        $form = $this->formService->getAnnotationForm($this->entityManager, $category);
+        $form->setValidationGroup(['name', 'parentId']);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+
+            $categoryNameOld = $category->getName();
+            $categoryNameNew = trim(strip_tags($form->get('name')->getValue()));
+
+            if ($this->repository->findBy(['name' => $categoryNameNew]) && $categoryNameNew != $categoryNameOld) {
+                $nameExists = 'Category with name "' . $categoryNameNew . '" exists already';
+                $form->get('name')->setMessages(['nameExists' => $nameExists]);
+            }
+
+            if ($form->isValid() && empty($form->getMessages())) {
+                $category = $form->getData();
+
+                $this->entityManager->persist($category);
+                $this->entityManager->flush();
+
+                $this->flashMessenger()->addSuccessMessage('Category edited');
+
+                return $this->redirect()->toRoute('admin/categories');
+            }
+        }
+
+        return new ViewModel([
+            'id'   => $id,
+            'form' => $form,
+        ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = (int)$this->params()->fromRoute('id', 0);
+        $category = $this->repository->find($id);
+        $request = $this->getRequest();
+
+        if (! $id || ! $category || ! $request->isPost()) {
+            return $this->notFoundAction();
+        }
+
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
+
+        $this->flashMessenger()->addSuccessMessage('Category deleted');
+
+        return $this->redirect()->toRoute('admin/categories');
     }
 }

@@ -82,6 +82,20 @@ return [
                             ],
                         ],
                     ],
+                    'admins' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/admins[/:action[/:id]]',
+                            'constraints'    => [
+                                'action' => '[a-z-]*',
+                                'id' => '[0-9]+',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\AdminController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
                     'orders' => [
                         'type'    => Segment::class,
                         'options' => [
@@ -104,7 +118,6 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\UserController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

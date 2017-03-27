@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Admin\Service\FormServiceInterface;
 use Application\Entity\User;
 
-class UserController extends AbstractActionController
+class AdminController extends AbstractActionController
 {
     private $entityManager;
     private $formService;
@@ -25,10 +25,10 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        $users = $this->repository->findBy(['role' => 'user']);
+        $admins = $this->repository->findBy(['role' => 'admin']);
 
         return new ViewModel([
-            'users' => $users,
+            'admins' => $admins,
         ]);
     }
 
@@ -54,9 +54,9 @@ class UserController extends AbstractActionController
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
-                $this->flashMessenger()->addSuccessMessage('User edited');
+                $this->flashMessenger()->addSuccessMessage('Admin edited');
 
-                return $this->redirect()->toRoute('admin/users');
+                return $this->redirect()->toRoute('admin/admins');
             }
         }
 

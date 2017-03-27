@@ -54,6 +54,18 @@ class Module
                         $container->get('validationService')
                     );
                 },
+                Controller\UserController::class => function ($container) {
+                    return new Controller\UserController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService')
+                    );
+                },
+                Controller\AdminController::class => function ($container) {
+                    return new Controller\AdminController(
+                        $container->get(EntityManager::class),
+                        $container->get('formService')
+                    );
+                },
             ],
         ];
     }
@@ -68,6 +80,19 @@ class Module
                 'getAccess' => function ($container) {
                     return new Controller\Plugin\GetAccess(
                         $container->get(AuthenticationService::class)
+                    );
+                },
+            ],
+        ];
+    }
+
+    public function getViewHelperConfig()
+    {
+        return [
+            'factories' => [
+                'getCategoryParentName' => function ($container) {
+                    return new View\Helper\GetCategoryParentName(
+                        $container->get(EntityManager::class)
                     );
                 },
             ],
