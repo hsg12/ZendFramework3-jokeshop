@@ -71,10 +71,11 @@ return [
                     'users' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/users[/:action[/:id]]',
+                            'route'    => '/users[/page/:page][/:action[/:id]]',
                             'constraints'    => [
                                 'action' => '[a-z-]*',
-                                'id' => '[0-9]+',
+                                'id'     => '[0-9]+',
+                                'page'   => '[0-9]+',
                             ],
                             'defaults' => [
                                 'controller' => Controller\UserController::class,

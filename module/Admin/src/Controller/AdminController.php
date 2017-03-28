@@ -35,13 +35,13 @@ class AdminController extends AbstractActionController
     public function editAction()
     {
         $id = (int)$this->params()->fromRoute('id', 0);
-        $user = $this->repository->find($id);
+        $admin = $this->repository->find($id);
 
-        if (! $id || ! $user) {
+        if (! $id || ! $admin) {
             return $this->notFoundAction();
         }
 
-        $form = $this->formService->getAnnotationForm($this->entityManager, $user);
+        $form = $this->formService->getAnnotationForm($this->entityManager, $admin);
         $form->setValidationGroup(['role']);
 
         $request = $this->getRequest();
@@ -49,9 +49,9 @@ class AdminController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $user = $form->getData();
+                $admin = $form->getData();
 
-                $this->entityManager->persist($user);
+                $this->entityManager->persist($admin);
                 $this->entityManager->flush();
 
                 $this->flashMessenger()->addSuccessMessage('Admin edited');
@@ -64,5 +64,23 @@ class AdminController extends AbstractActionController
             'id' => $id,
             'form' => $form,
         ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = (int)$this->params()->fromRoute('id', 0);
+        $admin = $this->repository->find($id);
+        $request = $this->getRequest();
+
+        if (! $id || ! $admin || ! $request->isPost()) {
+            return $this->notFoundAction();
+        }
+
+        $this->entityManager->remove($admin);
+        $this->entityManager->flush();
+
+        $this->flashMessenger()->addSuccessMessage('Admin deleted');
+
+        return $this->redirect()->toRoute('admin/admins');
     }
 }

@@ -2,12 +2,12 @@
 $headTitle = 'Manage Admins';
 $this->headTitle($headTitle);
 ?>
+<div><?php $this->getFlashMessenger($this->flashMessenger()) ?></div>
 <?php if (! $this->admins) : ?>
     <h5>List is empty</h5>
 <?php else : ?>
     <div class="row">
         <div class="col-sm-12">
-            <div><?php $this->getFlashMessenger($this->flashMessenger()) ?></div>
             <h5>Admins list</h5>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">

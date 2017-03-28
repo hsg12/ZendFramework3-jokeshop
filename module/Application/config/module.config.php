@@ -157,7 +157,7 @@ return [
                         'route' => 'portfolio',
                     ],
                     'about' => [
-                        'label' => 'About us',
+                        'label' => 'About Us',
                         'route' => 'about-us',
                     ],
                     'category' => [

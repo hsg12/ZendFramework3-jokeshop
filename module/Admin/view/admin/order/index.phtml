@@ -2,11 +2,11 @@
 $headTitle = 'Manage orders';
 $this->headTitle($headTitle);
 ?>
+<?= $this->getFlashMessenger($this->flashMessenger()) ?>
 <br>
 <?php if (! $this->orders) : ?>
     <h5>List is empty</h5>
 <?php else : ?>
-    <?= $this->getFlashMessenger($this->flashMessenger()) ?>
     <div class="row">
         <div class="col-sm-12">
             <div class="table-responsive">

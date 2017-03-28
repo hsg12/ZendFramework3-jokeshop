@@ -2,12 +2,12 @@
 $headTitle = 'Manage Users';
 $this->headTitle($headTitle);
 ?>
+<div><?php $this->getFlashMessenger($this->flashMessenger()) ?></div>
 <?php if (! $this->users) : ?>
     <h5>List is empty</h5>
 <?php else : ?>
     <div class="row">
         <div class="col-sm-12">
-            <div><?php $this->getFlashMessenger($this->flashMessenger()) ?></div>
             <h5>Users list</h5>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
@@ -20,7 +20,7 @@ $this->headTitle($headTitle);
                     </tr>
                     <?php foreach ($this->users as $user) : ?>
                         <tr>
-                            <td>#</td>
+                            <td><?= (int)++$this->productsCnt ?></td>
                             <td><?= $this->escapeHtml($user->getName()) ?></td>
                             <td><?= $this->escapeHtml($user->getEmail()) ?></td>
                             <td><?= $this->escapeHtml($user->getRole()) ?></td>
@@ -35,4 +35,14 @@ $this->headTitle($headTitle);
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <?php
+    echo $this->paginationControl(
+        $this->users,
+        'sliding',
+        'partial/paginator',
+        ['route' => 'admin/users']
+    );
+    ?>
 <?php endif; ?>

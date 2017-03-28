@@ -7,6 +7,9 @@ use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Admin\Service\FormServiceInterface;
 use Application\Entity\User;
+use Zend\Paginator\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
 
 class UserController extends AbstractActionController
 {
@@ -25,10 +28,21 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        $users = $this->repository->findBy(['role' => 'user']);
+        $usersQueryBuilder = $this->repository->getUsersQueryBuilder($this->entityManager);
+
+        $adapter = new DoctrinePaginator(new ORMPaginator($usersQueryBuilder));
+        $paginator = new Paginator($adapter);
+
+        $currentPageNumber = (int)$this->params()->fromRoute('page', 1);
+        $paginator->setCurrentPageNumber($currentPageNumber);
+
+
+        $itemCountPerPage = 1;
+        $paginator->setItemCountPerPage($itemCountPerPage);
 
         return new ViewModel([
-            'users' => $users,
+            'users' => $paginator,
+            'productsCnt'  => ($currentPageNumber - 1) * $itemCountPerPage,
         ]);
     }
 
@@ -64,5 +78,23 @@ class UserController extends AbstractActionController
             'id' => $id,
             'form' => $form,
         ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = (int)$this->params()->fromRoute('id', 0);
+        $user = $this->repository->find($id);
+        $request = $this->getRequest();
+
+        if (! $id || ! $user || ! $request->isPost()) {
+            return $this->notFoundAction();
+        }
+
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+
+        $this->flashMessenger()->addSuccessMessage('User deleted');
+
+        return $this->redirect()->toRoute('admin/users');
     }
 }

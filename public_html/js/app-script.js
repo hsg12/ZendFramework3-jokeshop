@@ -190,10 +190,22 @@ $(function(){
         $('#adminProductSearchResult li').remove();
     });
 
-/////////   For user delete modal   /////////////////////////////////////////////////////
+/////////   For product delete modal   //////////////////////////////////////////////////
 
     $('#delete-product').click('on', function(){
         $('.delete-product-form').submit();
+    });
+
+/////////   For user delete modal   /////////////////////////////////////////////////////
+
+    $('#delete-user').click('on', function(){
+        $('.delete-user-form').submit();
+    });
+
+/////////   For admin delete modal   /////////////////////////////////////////////////////
+
+    $('#delete-admin').click('on', function(){
+        $('.delete-admin-form').submit();
     });
 
 /////////   Add to cart   ///////////////////////////////////////////////////////////////

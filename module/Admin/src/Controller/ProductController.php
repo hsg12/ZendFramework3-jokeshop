@@ -56,8 +56,6 @@ class ProductController extends AbstractActionController
         $itemCountPerPage = 10;
         $paginator->setItemCountPerPage($itemCountPerPage);
 
-        $pageNumber = (int)$paginator->getCurrentPageNumber();
-
         $request = $this->getRequest();
         if ($request->isPost()) {
 

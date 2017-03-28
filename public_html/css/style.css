@@ -213,7 +213,7 @@ input:-ms-input-placeholder {font-size: 12px;}
     width: 30%;
 }
 
-.delete-product-form {
+.delete-product-form, .delete-user-form, .delete-admin-form {
     display: none;
 }
 
@@ -372,6 +372,13 @@ input:-ms-input-placeholder {font-size: 12px;}
 
 #bs-example-navbar-collapse-1 {
     position: relative;
+}
+
+.about-img {
+    background-color: #eee;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
 }
 
 
