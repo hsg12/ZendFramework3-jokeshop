@@ -56,10 +56,11 @@ class OrderController extends AbstractActionController
                           ->getRepository(ProductOrder::class)
                           ->find($id);
 
-        $orderData = $this->getOrderData($this->entityManager, $order);
-        if (! $id || ! $orderData || !$page) {
+        if (! $id || ! $page || ! $order) {
             return $this->notFoundAction();
         }
+
+        $orderData = $this->getOrderData($this->entityManager, $order);
 
         $form = $this->formService->getAnnotationForm($this->entityManager, $order);
         $form->setValidationGroup(['status']);

@@ -10,6 +10,10 @@ class GetOrderData extends AbstractPlugin
 {
     public function __invoke(EntityManagerInterface $entityManager, $userOrders)
     {
+        if (! $userOrders) {
+            return false;
+        }
+
         $dataArray = [];
 
         if (is_object($userOrders)) {
