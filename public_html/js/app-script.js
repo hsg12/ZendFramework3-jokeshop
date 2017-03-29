@@ -292,7 +292,7 @@ $(function(){
     });
 
     $('.delete-category-admin').jConfirmAction({
-        question: 'Are you sure?',
+        question: 'All nested products will be deleted. Are you sure?',
         noText: 'Cancel'
     });
 
