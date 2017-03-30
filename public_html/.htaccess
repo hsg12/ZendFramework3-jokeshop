@@ -1,3 +1,4 @@
+Options All -Indexes
 RewriteEngine On
 # The following rule tells Apache that if the requested filename
 # exists, simply serve it.
