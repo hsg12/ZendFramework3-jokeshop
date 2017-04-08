@@ -38,6 +38,11 @@ class RegisterController extends AbstractActionController
 
     public function indexAction()
     {
+        if ($this->identity()) {
+            return $this->redirect()->toRoute('home');
+            die;
+        }
+
         $this->layout('layout/authLayout');
 
         $user = new User();
