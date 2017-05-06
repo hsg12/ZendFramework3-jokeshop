@@ -43,7 +43,8 @@ $(function(){
         });
         $('#mainPageSearchResult').css({
             left: '14px',
-            top: '290px'
+            top: '340px',
+            width: '210px'
         });
     }
 
@@ -344,20 +345,15 @@ $(function(){
 /////////   Settings for admin slider form   ////////////////////////////////////////////
 
     $('#slider input:eq(3)').removeClass('form-control');
-    
+
+/////////   In order to add 0 to category list(Admin/Category(add, edit form))   ////////
+
+    //$('<option value="0">New category</option>').insertAfter('form#category select option:first-child');
 
 /////////   For form radio box   ////////////////////////////////////////////////////////
 
     $('.radio-box label:eq(0)').append('&nbsp;&nbsp;&nbsp;');
 
-/////////   For portfolio   /////////////////////////////////////////////////////////////
-
-    if ($(document).width() < 768) {
-        $('.portfolio').css('marginBottom', '20px');
-    }
-
 /////////   END   ///////////////////////////////////////////////////////////////////////
+
 });
-
-
-
