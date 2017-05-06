@@ -151,8 +151,12 @@ class Product
      * @Annotation\Name("file")
      * @Annotation\Attributes({"id":"file"})
      * @Annotation\Options({"label":"Upload image", "label_attributes":{"class":"control-label text-right col-sm-2"}})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Extension", "options":{
+     *     "extension":{"png", "jpg", "jpeg", "gif"}
+     * }})
+     * @Annotation\Validator({"name":"Zend\Validator\File\IsImage"})
+     * @Annotation\Input("Zend\InputFilter\FileInput")
      * @Annotation\Filter({
-     *     "type":"Zend\InputFilter\FileInput",
      *     "name":"FileRenameUpload",
      *     "options":{
      *         "target":"./public_html/img/products/",
