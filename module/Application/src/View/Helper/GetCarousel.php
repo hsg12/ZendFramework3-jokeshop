@@ -18,7 +18,7 @@ class GetCarousel extends AbstractHelper
     public function __invoke($obj)
     {
         $output = '';
-        $slider = $this->entityManager->getRepository(Slider::class)->getSlider($this->entityManager);
+        $slider = $this->entityManager->getRepository(Slider::class)->getSlider();
 
         if (is_array($slider) && ! empty($slider)) {
             foreach ($slider as $key => $item) {

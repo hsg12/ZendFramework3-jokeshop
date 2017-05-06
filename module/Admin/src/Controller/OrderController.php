@@ -28,7 +28,7 @@ class OrderController extends AbstractActionController
     {
         $productOrderQueryBuilder = $this->entityManager
                                      ->getRepository(ProductOrder::class)
-                                     ->getProductOrderQueryBuilder($this->entityManager);
+                                     ->getProductOrderQueryBuilder();
 
         $adapter = new DoctrinePaginator(new ORMPaginator($productOrderQueryBuilder));
         $paginator = new Paginator($adapter);

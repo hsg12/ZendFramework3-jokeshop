@@ -32,7 +32,7 @@ class OrderController extends AbstractActionController
 
         $userOrders = $this->entityManager
                            ->getRepository(ProductOrder::class)
-                           ->getOrders($this->entityManager, (int)$user->getId());
+                           ->getOrders((int)$user->getId());
 
         $dataArray = $this->getOrderData($this->entityManager, $userOrders);
 

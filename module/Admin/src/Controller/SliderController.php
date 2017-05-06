@@ -26,7 +26,7 @@ class SliderController extends AbstractActionController
 
     public function indexAction()
     {
-        $slider = $this->repository->getSlider($this->entityManager, false);
+        $slider = $this->repository->getSlider(false);
         return new ViewModel([
             'slider' => $slider,
         ]);

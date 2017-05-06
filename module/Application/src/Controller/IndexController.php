@@ -32,7 +32,7 @@ class IndexController extends AbstractActionController
     {
         $productsQueryBuilder = $this->entityManager
                                      ->getRepository(Product::class)
-                                     ->getProductsQueryBuilderForHomePage($this->entityManager);
+                                     ->getProductsQueryBuilderForHomePage();
 
         $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
         $paginator = new Paginator($adapter);
@@ -72,7 +72,7 @@ class IndexController extends AbstractActionController
             $stringTrim = new StringTrim();
             $search = $stringTrim->filter($search);
 
-            $product = $this->entityManager->getRepository(Product::class)->search($this->entityManager, $search);
+            $product = $this->entityManager->getRepository(Product::class)->search($search);
         }
 
         $response->setContent(\Zend\Json\Json::encode($product));

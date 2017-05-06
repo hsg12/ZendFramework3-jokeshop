@@ -17,7 +17,7 @@ class GetCategories extends AbstractHelper
 
     public function __invoke()
     {
-        $result = $this->entityManager->getRepository(Category::class)->getCategoriesArray($this->entityManager);
+        $result = $this->entityManager->getRepository(Category::class)->getCategoriesArray();
 
         if (! $result) {
             return false;

@@ -33,7 +33,7 @@ class CategoryController extends AbstractActionController
 
         $productsQueryBuilder = $this->entityManager
                                      ->getRepository(Product::class)
-                                     ->getProductsQueryBuilderForCategoryPage($this->entityManager, $id);
+                                     ->getProductsQueryBuilderForCategoryPage($id);
 
         $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
         $paginator = new Paginator($adapter);

@@ -28,7 +28,7 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        $usersQueryBuilder = $this->repository->getUsersQueryBuilder($this->entityManager);
+        $usersQueryBuilder = $this->repository->getUsersQueryBuilder();
 
         $adapter = new DoctrinePaginator(new ORMPaginator($usersQueryBuilder));
         $paginator = new Paginator($adapter);

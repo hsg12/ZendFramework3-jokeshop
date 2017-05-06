@@ -3,17 +3,13 @@
 namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Category;
-
-
-
 
 class CategoryRepository extends EntityRepository
 {
-    public function getCategoriesArray(EntityManagerInterface $entityManager)
+    public function getCategoriesArray()
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
            ->from(Category::class, 'AS c')
            ->orderBy('c.id', 'ASC');

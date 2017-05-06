@@ -29,7 +29,7 @@ class BasketController extends AbstractActionController
 
         if ($productsSession) {
             $ids = array_keys($productsSession);
-            $products = $this->repository->getSelectedProductsByIds($this->entityManager, $ids);
+            $products = $this->repository->getSelectedProductsByIds($ids);
 
             $totalPrice = Cart::getTotalPrice($products);
             $totalCount = Cart::countProducts();

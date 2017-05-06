@@ -3,16 +3,15 @@
 namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\Product;
 
 class ProductRepository extends EntityRepository
 {
-    public function search(EntityManagerInterface $entityManager, $searchPattern)
+    public function search($searchPattern)
     {
         $search = '%' . $searchPattern . '%';
 
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select(['p.id, p.name'])
            ->from(Product::class, 'AS p')
            ->where('p.name LIKE :search')
@@ -24,9 +23,9 @@ class ProductRepository extends EntityRepository
         return $result ? $result : false;
     }
 
-    public function getProductsQueryBuilderForHomePage(EntityManagerInterface $entityManager, $considerStatus = true)
+    public function getProductsQueryBuilderForHomePage($considerStatus = true)
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('p');
         $qb->from(Product::class, 'AS p');
         if ($considerStatus) {
@@ -37,9 +36,9 @@ class ProductRepository extends EntityRepository
         return $qb ? $qb : false;
     }
 
-    public function getProductsQueryBuilderForCategoryPage(EntityManagerInterface $entityManager, $categoryId)
+    public function getProductsQueryBuilderForCategoryPage($categoryId)
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('p')
             ->from(Product::class, 'AS p')
             ->where('p.category = :categoryId')
@@ -50,14 +49,14 @@ class ProductRepository extends EntityRepository
         return $qb ? $qb : false;
     }
 
-    public function getSelectedProductsByIds(EntityManagerInterface $entityManager, $ids)
+    public function getSelectedProductsByIds($ids)
     {
         $sql  = "SELECT p ";
         $sql .= "FROM " . Product::class;
         $sql .= " AS p ";
         $sql .= "WHERE p.id IN (:ids)";
 
-        $query = $entityManager->createQuery($sql)->setParameter('ids', $ids);
+        $query = $this->getEntityManager()->createQuery($sql)->setParameter('ids', $ids);
         $result = $query->getResult();
 
         return $result ? $result : false;

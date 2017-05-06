@@ -44,7 +44,7 @@ class ProductController extends AbstractActionController
     {
         $productsQueryBuilder = $this->entityManager
                                      ->getRepository(Product::class)
-                                     ->getProductsQueryBuilderForHomePage($this->entityManager, false);
+                                     ->getProductsQueryBuilderForHomePage(false);
 
         $adapter = new DoctrinePaginator(new ORMPaginator($productsQueryBuilder));
         $paginator = new Paginator($adapter);
@@ -216,7 +216,7 @@ class ProductController extends AbstractActionController
             $filterStripTags = new StripTags();
             $search = $filterStripTags->filter($search);
 
-            $searchResult = $this->getRepository()->search($this->entityManager, $search);
+            $searchResult = $this->getRepository()->search($search);
         }
 
         $response->setContent(\Zend\Json\Json::encode($searchResult));

@@ -3,14 +3,13 @@
 namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Application\Entity\ProductOrder;
 
 class ProductOrderRepository extends EntityRepository
 {
-    public function getOrders(EntityManagerInterface $entityManager, $userId)
+    public function getOrders($userId)
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('pO')
            ->from(ProductOrder::class, 'AS pO')
            ->where('pO.userId = ?1')
@@ -23,9 +22,9 @@ class ProductOrderRepository extends EntityRepository
         return $result ? $result : false;
     }
 
-    public function getProductOrderQueryBuilder(EntityManagerInterface $entityManager)
+    public function getProductOrderQueryBuilder()
     {
-        $qb = $entityManager->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('pO')
             ->from(ProductOrder::class, 'AS pO')
             ->orderBy('pO.id', 'DESC');
