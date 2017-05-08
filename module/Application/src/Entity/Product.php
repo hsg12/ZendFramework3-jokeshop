@@ -155,6 +155,7 @@ class Product
      *     "extension":{"png", "jpg", "jpeg", "gif"}
      * }})
      * @Annotation\Validator({"name":"Zend\Validator\File\IsImage"})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Size", "options":{"max":"20000000"}})
      * @Annotation\Input("Zend\InputFilter\FileInput")
      * @Annotation\Filter({
      *     "name":"FileRenameUpload",
