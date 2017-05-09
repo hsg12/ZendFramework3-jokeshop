@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Admin\Service\FormServiceInterface;
 use Application\Entity\Category;
+use Application\Entity\Product;
 use Authentication\Service\ValidationServiceInterface;
 
 class CategoryController extends AbstractActionController
@@ -112,6 +113,22 @@ class CategoryController extends AbstractActionController
         ]);
     }
 
+    private function getNestedCategoriesChain($categoryId)
+    {
+        $result = [];
+        $categories = $this->repository->findBy(['parentId' => $categoryId]);
+        if (! empty($categories)) {
+            foreach ($categories as $category) {
+                if (!empty($category)) {
+                    $result[] = $category;
+                    $result[] = $this->getNestedCategoriesChain($category->getId());
+                }
+            }
+        }
+
+        return $result;
+    }
+
     public function deleteAction()
     {
         $id = (int)$this->params()->fromRoute('id', 0);
@@ -121,6 +138,34 @@ class CategoryController extends AbstractActionController
         if (! $id || ! $category || ! $request->isPost()) {
             return $this->notFoundAction();
         }
+
+        /* Block for deletion nested products images (on server) (If category has nested categories) */
+        $nestedCategoriesChain = $this->getNestedCategoriesChain($id);
+
+        array_walk_recursive($nestedCategoriesChain, function($value) {
+            $products = $this->entityManager->getRepository(Product::class)->findBy(['category' => $value->getId()]);
+
+            if (isset($products)) {
+                array_walk_recursive($products, function($product){
+                    if (is_file(getcwd() . '/public_html' . $product->getImage())) {
+                        unlink(getcwd() . '/public_html' . $product->getImage());
+                    }
+                });
+            }
+        });
+        /* End block */
+
+        /* Block for deletion products images in category (on server) (If category has not nested categories) */
+        $products = $this->entityManager->getRepository(Product::class)->findBy(['category' => $category]);
+
+        if ($products) {
+            foreach ($products as $product) {
+                if (is_file(getcwd() . '/public_html' . $product->getImage())) {
+                    unlink(getcwd() . '/public_html' . $product->getImage());
+                }
+            }
+        }
+        /* End block */
 
         $this->entityManager->remove($category);
         $this->entityManager->flush();

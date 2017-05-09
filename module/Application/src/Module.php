@@ -25,7 +25,8 @@ class Module
             'invokables' => [
                 'getYear'           => View\Helper\GetYear::class,
                 'getFlashMessenger' => View\Helper\GetFlashMessenger::class,
-                'cutStr'         => View\Helper\CutStr::class,
+                'cutStr'            => View\Helper\CutStr::class,
+                'getImage'          => View\Helper\GetImage::class,
             ],
             'factories' => [
                 'getCategories' => function ($container) {

@@ -95,7 +95,7 @@ foreach ($form as $element) {
                         <div class="form-group">
                             <div class="col-sm-12 col-sm-offset-2">
                                 <p class="admin-product-edit-img">
-                                    <img src="<?= $this->product->getImage() ?>"
+                                    <img src="<?= $this->getImage($this, $product->getImage()) ?>"
                                          alt="product-picture"
                                          class="img-responsive"
 
@@ -124,7 +124,7 @@ foreach ($form as $element) {
 <hr>
 <div class="row">
     <div class="col-sm-12">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
             Delete product
         </button>
     </div>

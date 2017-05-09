@@ -83,7 +83,7 @@ $this->headTitle($headTitle);
                         <td><?= $product->getAvailability() ? 'Available' : 'Not available'; ?></td>
                         <td><?= $product->getIsNew() ? 'Yes' : 'No'; ?></td>
                         <td><?= $product->getStatus() ? 'Yes' : 'No'; ?></td>
-                        <td><img src="<?= $this->escapeHtml($product->getImage()) ?>" width="30" height="30" alt="pic"></td>
+                        <td><img src="<?= $this->getImage($this, $product->getImage()) ?>" width="30" height="30" alt="pic"></td>
                         <td>
                             <a href="<?= $this->url('admin/products', ['action' => 'edit', 'id' => (int)$product->getId()]) ?>">
                                 Edit

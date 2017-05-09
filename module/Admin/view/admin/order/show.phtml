@@ -20,7 +20,7 @@ $status = $this->formSelect($form->get('status'));
                     <div class="my-order-bottom-panel">
                         <div class="row">
                             <div class="col-lg-2 col-md-2 col-sm-3">
-                                <img src="<?= $this->escapeHtml($products[0]->getImage()) ?>" class="img-responsive" alt="product">
+                                <img src="<?= $this->getImage($this, $products[0]->getImage()) ?>" class="img-responsive" alt="product">
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-9">
                                 <div><strong>Product name</strong>: <?= $this->escapeHtml($products[0]->getName()) ?></div>

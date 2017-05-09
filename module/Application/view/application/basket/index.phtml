@@ -24,7 +24,7 @@ $this->headTitle($headTitle);
                 </a>
             </td>
             <td>
-                <img src="<?= $this->escapeHtml($product->getImage()) ?>" width="30px" height="30px">
+                <img src="<?= $this->getImage($this, $product->getImage()) ?>" width="30px" height="30px">
             </td>
             <td>US $<?= $this->escapeHtml($product->getPrice()) ?></td>
             <td class="basket-price">US $

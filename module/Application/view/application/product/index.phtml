@@ -10,7 +10,7 @@ $productCount = $this->productCount;
             <?php if ($this->product->getIsNew() == 1) : ?>
                 <img src="/img/home/new.png" class="img-responsive newProductPage" alt="new">
             <?php endif; ?>
-            <img src="<?= $this->escapeHtml($this->product->getImage()) ?>"
+            <img src="<?= $this->getImage($this, $product->getImage()) ?>"
                  alt="product-image"
                  class="img-responsive"
                  width="50%"

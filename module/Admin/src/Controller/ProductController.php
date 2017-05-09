@@ -179,7 +179,13 @@ class ProductController extends AbstractActionController
 
             if ($form->isValid() && empty($form->getMessages())) {
                 $product = $form->getData();
+
                 if ($fileName) {
+                    $oldImage = $product->getImage();
+                    if (is_file(getcwd() . '/public_html' . $oldImage)) {
+                        unlink(getcwd() . '/public_html' . $oldImage);
+                    }
+
                     $product->setImage('/img/products/' . $fileName);
                 }
 
@@ -232,6 +238,14 @@ class ProductController extends AbstractActionController
         if (! $request->isPost() || ! $product) {
             return $this->notFoundAction();
         }
+
+        /* Block for deletion product image */
+        if ($product) {
+            if (is_file(getcwd() . '/public_html' . $product->getImage())) {
+                unlink(getcwd() . '/public_html' . $product->getImage());
+            }
+        }
+        /* End block */
 
         $this->entityManager->remove($product);
         $this->entityManager->flush();
