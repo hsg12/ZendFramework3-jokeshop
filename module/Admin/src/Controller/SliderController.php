@@ -101,6 +101,11 @@ class SliderController extends AbstractActionController
                 $slider = $form->getData();
 
                 if ($fileName) {
+                    $oldImage = $slider->getImage();
+                    if (is_file(getcwd() . '/public_html' . $oldImage)) {
+                        unlink(getcwd() . '/public_html' . $oldImage);
+                    }
+
                     $slider->setImage('/img/slider/' . $fileName);
                 }
 
@@ -128,6 +133,14 @@ class SliderController extends AbstractActionController
         if (! $request->isPost() || ! $slider) {
             return $this->notFoundAction();
         }
+
+        /* Block for deletion slider image */
+        if ($slider) {
+            if (is_file(getcwd() . '/public_html' . $slider->getImage())) {
+                unlink(getcwd() . '/public_html' . $slider->getImage());
+            }
+        }
+        /* End block */
 
         $this->entityManager->remove($slider);
         $this->entityManager->flush();

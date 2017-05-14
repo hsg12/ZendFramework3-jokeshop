@@ -89,8 +89,12 @@ class Slider
      * @Annotation\Name("file")
      * @Annotation\Attributes({"id":"file"})
      * @Annotation\Options({"label":"Upload image", "label_attributes":{"class":"control-label text-right col-sm-2"}})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Extension", "options":{
+     *     "extension":{"png", "jpg", "jpeg", "gif"}
+     * }})
+     * @Annotation\Validator({"name":"Zend\Validator\File\Size", "options":{"max":"20000000"}})
+     * @Annotation\Input("Zend\InputFilter\FileInput")
      * @Annotation\Filter({
-     *     "type":"Zend\InputFilter\FileInput",
      *     "name":"FileRenameUpload",
      *     "options":{
      *         "target":"./public_html/img/slider/",
@@ -100,8 +104,9 @@ class Slider
      *         "randomize":false
      *     }
      * })
+     * @Annotation\AllowEmpty({"allowempty":"true"})
      */
-    private $image = "/img/slider/no-image.jpg";
+    private $image;
 
     /**
      * @Annotation\Type("Zend\Form\Element\Submit")

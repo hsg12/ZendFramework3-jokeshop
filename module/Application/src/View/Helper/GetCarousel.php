@@ -22,8 +22,7 @@ class GetCarousel extends AbstractHelper
 
         if (is_array($slider) && ! empty($slider)) {
             foreach ($slider as $key => $item) {
-
-                $image = trim(strip_tags($item->getImage()));
+                $image = $obj->getImage($obj, $item->getImage(), true);
                 $title = $obj->cutString(trim(strip_tags($item->getTitle())), 12);
                 $text  = $obj->cutString(trim(strip_tags($item->getText())), 15);
 
