@@ -8,10 +8,10 @@ return [
             'orm_default' => [
                 'driverClass' => PDOMySqlDriver::class,
                 'params' => [
-                    'host'     => 'localhost',
-                    'user'     => 'jokeshop_user',
-                    'password' => 'jokeshop_password',
-                    'dbname'   => 'jokeshop',
+                    'host'     => 'mysql.hostinger.in',
+                    'user'     => 'u281467562_shop',
+                    'password' => 'RCFm1mBNSOaM',
+                    'dbname'   => 'u281467562_joke',
                 ]
             ],
         ],
